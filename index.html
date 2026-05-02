@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EL Affiliate Store</title>
+  <meta name="description" content="Kumpulan produk Shopee Affiliate pilihan, murah, viral, dan berguna." />
+  <meta name="theme-color" content="#ff4d00" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --orange: #ff4d00;
+      --orange2: #ff8a00;
+      --dark: #111827;
+      --soft-dark: #1f2937;
+      --muted: #6b7280;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --yellow: #facc15;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255, 77, 0, .17), transparent 34%),
+        radial-gradient(circle at top left, rgba(255, 138, 0, .10), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      color: var(--dark);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: -.3px;
+    }
+
+    .logo-badge {
+      width: 43px;
+      height: 43px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      box-shadow: 0 14px 30px rgba(255,77,0,.28);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .nav-actions a {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 900;
+      background: var(--dark);
+      color: white;
+      transition: .2s ease;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: .93;
+    }
+
+    .btn-orange {
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      color: white;
+      box-shadow: 0 14px 28px rgba(255,77,0,.24);
+    }
+
+    .btn-soft {
+      background: #fff3ed;
+      color: var(--orange);
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: var(--red);
+    }
+
+    .hero {
+      padding: 52px 0 35px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: .96;
+      letter-spacing: -2.2px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero p {
+      margin: 0 0 23px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border-radius: 34px;
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(17,24,39,.09);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      top: -72px;
+      right: -72px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--orange), transparent);
+      opacity: .23;
+    }
+
+    .black-card {
+      position: relative;
+      padding: 23px;
+      border-radius: 27px;
+      color: white;
+      background:
+        radial-gradient(circle at top right, rgba(255,138,0,.35), transparent 36%),
+        linear-gradient(135deg, #111827, #1f2937);
+      overflow: hidden;
+    }
+
+    .black-card h2 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.1;
+    }
+
+    .black-card p {
+      margin: 0;
+      color: rgba(255,255,255,.75);
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      position: relative;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 17px;
+    }
+
+    .stat b {
+      color: var(--orange);
+      font-size: 23px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .admin-panel {
+      display: none;
+      margin: 28px 0;
+      padding: 24px;
+      border-radius: 30px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 70px rgba(17,24,39,.08);
+    }
+
+    .admin-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .admin-head h2 {
+      margin: 0 0 5px;
+      font-size: 26px;
+    }
+
+    .admin-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .notice {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff7ed;
+      border: 1px dashed #fed7aa;
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 15px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(255,77,0,.10);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 13px;
+    }
+
+    .section-title {
+      margin: 36px 0 16px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 4px;
+      font-size: 31px;
+      letter-spacing: -.6px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      margin: 18px 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      padding-bottom: 45px;
+    }
+
+    .product {
+      overflow: hidden;
+      border-radius: 28px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 45px rgba(17,24,39,.065);
+      transition: .2s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 60px rgba(17,24,39,.12);
+    }
+
+    .product-img {
+      aspect-ratio: 1 / 1;
+      background:
+        radial-gradient(circle at center, #ffffff, #f3f4f6);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .no-img {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      font-size: 54px;
+      background: linear-gradient(135deg, #fff7ed, #f3f4f6);
+    }
+
+    .product-body {
+      padding: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 9px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff3ed;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .product h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .price {
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .desc {
+      min-height: 42px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 13px;
+      flex-wrap: wrap;
+    }
+
+    .product-actions a,
+    .product-actions button {
+      flex: 1;
+      border: 0;
+      border-radius: 14px;
+      padding: 11px 10px;
+      font-weight: 900;
+      cursor: pointer;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .buy {
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      color: white;
+    }
+
+    .copy {
+      background: #f3f4f6;
+      color: var(--dark);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 0 55px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 930px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 35px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav-actions a:not(.admin-link) {
+        display: none;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.3px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .admin-panel {
+        padding: 18px;
+        border-radius: 26px;
+      }
+
+      .section-title {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="./">
+        <div class="logo-badge">EL</div>
+        <div>EL Affiliate Store</div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="#produk">Produk</a>
+        <a class="admin-link" href="?admin=1">Admin</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Produk <span>Shopee pilihan</span> yang lagi viral.</h1>
+        <p>
+          Kumpulan rekomendasi produk murah, berguna, dan menarik.
+          Klik tombol beli untuk langsung menuju produk Shopee.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-orange" href="#produk">Lihat Produk</a>
+          <a class="btn btn-soft" href="?admin=1">Masuk Admin</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="black-card">
+          <h2>Belanja lebih mudah</h2>
+          <p>Semua produk affiliate kamu tampil rapi, premium, dan bisa dicari pembeli.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <b>Update</b>
+            <span>Tambah produk dari panel admin</span>
+          </div>
+          <div class="stat">
+            <b>Aman</b>
+            <span>Admin hanya email kamu</span>
+          </div>
+          <div class="stat">
+            <b>Cepat</b>
+            <span>Data tersimpan di Firebase</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="adminPanel" class="admin-panel">
+      <div class="admin-head">
+        <div>
+          <h2>Panel Admin</h2>
+          <p id="adminStatus">Login dengan Gmail admin untuk tambah produk.</p>
+        </div>
+
+        <div>
+          <button id="loginBtn" class="btn btn-orange" type="button">Login Google</button>
+          <button id="logoutBtn" class="btn btn-soft hidden" type="button">Logout</button>
+        </div>
+      </div>
+
+      <div class="notice">
+        Data produk tersimpan di <b>Firebase Console → Cloud Firestore → Data → products</b>.
+        Kamu tidak perlu edit index.html lagi setiap tambah link Shopee.
+      </div>
+
+      <form id="productForm" class="hidden">
+        <div class="form-grid">
+          <input id="title" placeholder="Nama produk, contoh: Kipas Mini Portable" required />
+          <input id="price" placeholder="Harga, contoh: Rp39.900" />
+
+          <input id="category" placeholder="Kategori, contoh: Gadget" />
+          <input id="badge" placeholder="Label, contoh: Viral / Promo / Best Seller" />
+
+          <input id="imageUrl" class="full" placeholder="URL gambar produk, contoh: https://..." />
+
+          <input id="link" class="full" placeholder="Link affiliate Shopee, contoh: https://s.shopee.co.id/..." required />
+
+          <textarea id="description" class="full" placeholder="Deskripsi singkat produk, contoh: Kipas mini kencang, cocok untuk cuaca panas."></textarea>
+        </div>
+
+        <div class="admin-actions">
+          <button id="saveBtn" class="btn btn-orange" type="submit">Simpan Produk</button>
+          <button id="resetBtn" class="btn btn-soft" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="produk">
+      <div class="section-title">
+        <div>
+          <h2>Produk Pilihan</h2>
+          <p>Rekomendasi produk Shopee Affiliate terbaik.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input id="searchInput" placeholder="Cari produk..." />
+        <select id="categoryFilter">
+          <option value="">Semua kategori</option>
+        </select>
+      </div>
+
+      <div id="productGrid" class="grid">
+        <div class="empty">Memuat produk...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> EL Affiliate Store.
+    <br />
+    Website ini berisi rekomendasi produk dengan link affiliate Shopee.
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signInWithRedirect,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      doc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
+      authDomain: "el-affiliate-store.firebaseapp.com",
+      projectId: "el-affiliate-store",
+      storageBucket: "el-affiliate-store.firebasestorage.app",
+      messagingSenderId: "1023817787454",
+      appId: "1:1023817787454:web:7516b1a8e4d2d989a6896f"
+    };
+
+    const ADMIN_EMAIL = "aliansikonoha25@gmail.com";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    const $ = (id) => document.getElementById(id);
+
+    const adminPanel = $("adminPanel");
+    const productGrid = $("productGrid");
+    const productForm = $("productForm");
+    const adminStatus = $("adminStatus");
+    const loginBtn = $("loginBtn");
+    const logoutBtn = $("logoutBtn");
+
+    const titleInput = $("title");
+    const priceInput = $("price");
+    const categoryInput = $("category");
+    const badgeInput = $("badge");
+    const imageUrlInput = $("imageUrl");
+    const linkInput = $("link");
+    const descriptionInput = $("description");
+    const saveBtn = $("saveBtn");
+    const resetBtn = $("resetBtn");
+
+    const searchInput = $("searchInput");
+    const categoryFilter = $("categoryFilter");
+
+    let products = [];
+    let currentUser = null;
+    let editingId = null;
+
+    $("year").textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(location.search);
+    const isAdminPage = params.has("admin") || location.hash === "#admin";
+
+    if (isAdminPage) {
+      adminPanel.style.display = "block";
+    }
+
+    loginBtn.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        if (
+          error.code === "auth/popup-blocked" ||
+          error.code === "auth/popup-closed-by-user" ||
+          error.code === "auth/cancelled-popup-request"
+        ) {
+          await signInWithRedirect(auth, provider);
+        } else {
+          alert("Gagal login: " + error.message);
+        }
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+
+      if (!user) {
+        adminStatus.textContent = "Belum login. Login memakai Gmail admin.";
+        loginBtn.classList.remove("hidden");
+        logoutBtn.classList.add("hidden");
+        productForm.classList.add("hidden");
+        renderProducts();
+        return;
+      }
+
+      loginBtn.classList.add("hidden");
+      logoutBtn.classList.remove("hidden");
+
+      if (user.email === ADMIN_EMAIL) {
+        adminStatus.textContent = "Login sebagai admin: " + user.email;
+        productForm.classList.remove("hidden");
+      } else {
+        adminStatus.textContent = "Akun ini bukan admin: " + user.email;
+        productForm.classList.add("hidden");
+      }
+
+      renderProducts();
+    });
+
+    function isAdmin() {
+      return currentUser && currentUser.email === ADMIN_EMAIL;
+    }
+
+    const productQuery = query(
+      collection(db, "products"),
+      orderBy("createdAt", "desc")
+    );
+
+    onSnapshot(productQuery, (snapshot) => {
+      products = snapshot.docs.map((item) => ({
+        id: item.id,
+        ...item.data()
+      }));
+
+      renderCategoryFilter();
+      renderProducts();
+    }, (error) => {
+      console.error(error);
+      productGrid.innerHTML = `
+        <div class="empty">
+          Gagal memuat produk. Pastikan Firebase config dan Firestore Rules sudah benar.
+          <br />
+          Error: ${escapeHtml(error.message)}
+        </div>
+      `;
+    });
+
+    function renderCategoryFilter() {
+      const oldValue = categoryFilter.value;
+      const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+
+      categoryFilter.innerHTML = `<option value="">Semua kategori</option>`;
+
+      categories.forEach((cat) => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
+      });
+
+      categoryFilter.value = oldValue;
+    }
+
+    function renderProducts() {
+      const keyword = searchInput.value.toLowerCase().trim();
+      const selectedCategory = categoryFilter.value;
+
+      const filtered = products.filter((p) => {
+        const text = `
+          ${p.title || ""}
+          ${p.description || ""}
+          ${p.category || ""}
+          ${p.badge || ""}
+        `.toLowerCase();
+
+        const matchKeyword = text.includes(keyword);
+        const matchCategory = !selectedCategory || p.category === selectedCategory;
+
+        return matchKeyword && matchCategory;
+      });
+
+      if (filtered.length === 0) {
+        productGrid.innerHTML = `
+          <div class="empty">
+            Belum ada produk.
+            ${isAdminPage ? "<br />Login sebagai admin lalu tambah produk pertama kamu." : ""}
+          </div>
+        `;
+        return;
+      }
+
+      productGrid.innerHTML = filtered.map((p) => {
+        const safeTitle = escapeHtml(p.title || "Produk Shopee");
+        const safePrice = escapeHtml(p.price || "Cek harga di Shopee");
+        const safeDesc = escapeHtml(p.description || "Produk pilihan dari Shopee Affiliate.");
+        const safeBadge = escapeHtml(p.badge || p.category || "Rekomendasi");
+        const safeImage = escapeHtml(p.imageUrl || "");
+        const safeLink = escapeHtml(p.link || "#");
+
+        return `
+          <article class="product">
+            <div class="product-img">
+              ${
+                p.imageUrl
+                  ? `<img src="${safeImage}" alt="${safeTitle}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;no-img&quot;>🛍️</div>'" />`
+                  : `<div class="no-img">🛍️</div>`
+              }
+            </div>
+
+            <div class="product-body">
+              <span class="badge">🔥 ${safeBadge}</span>
+              <h3>${safeTitle}</h3>
+              <div class="price">${safePrice}</div>
+              <div class="desc">${safeDesc}</div>
+
+              <div class="product-actions">
+                <a class="buy" href="${safeLink}" target="_blank" rel="noopener noreferrer">Beli</a>
+                <button class="copy" type="button" onclick="copyLink('${encodeURIComponent(p.link || "")}')">Salin</button>
+              </div>
+
+              ${
+                isAdmin()
+                  ? `
+                    <div class="product-actions">
+                      <button class="copy" type="button" onclick="editProduct('${p.id}')">Edit</button>
+                      <button class="btn-danger" type="button" onclick="deleteProduct('${p.id}')">Hapus</button>
+                    </div>
+                  `
+                  : ""
+              }
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    productForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!isAdmin()) {
+        alert("Kamu bukan admin.");
+        return;
+      }
+
+      const data = {
+        title: titleInput.value.trim(),
+        price: priceInput.value.trim(),
+        category: categoryInput.value.trim(),
+        badge: badgeInput.value.trim(),
+        imageUrl: imageUrlInput.value.trim(),
+        link: linkInput.value.trim(),
+        description: descriptionInput.value.trim(),
+        updatedAt: serverTimestamp()
+      };
+
+      if (!data.title) {
+        alert("Nama produk wajib diisi.");
+        return;
+      }
+
+      if (!data.link) {
+        alert("Link affiliate wajib diisi.");
+        return;
+      }
+
+      if (!data.link.includes("shopee")) {
+        const lanjut = confirm("Link ini tidak terlihat seperti link Shopee. Tetap simpan?");
+        if (!lanjut) return;
+      }
+
+      try {
+        saveBtn.textContent = editingId ? "Mengupdate..." : "Menyimpan...";
+        saveBtn.disabled = true;
+
+        if (editingId) {
+          await updateDoc(doc(db, "products", editingId), data);
+          alert("Produk berhasil diupdate.");
+        } else {
+          await addDoc(collection(db, "products"), {
+            ...data,
+            createdAt: serverTimestamp()
+          });
+          alert("Produk berhasil ditambahkan.");
+        }
+
+        resetForm();
+      } catch (error) {
+        alert("Gagal simpan: " + error.message);
+      } finally {
+        saveBtn.textContent = "Simpan Produk";
+        saveBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener("click", resetForm);
+
+    function resetForm() {
+      editingId = null;
+      productForm.reset();
+      saveBtn.textContent = "Simpan Produk";
+      saveBtn.disabled = false;
+    }
+
+    window.editProduct = function(id) {
+      if (!isAdmin()) {
+        alert("Kamu bukan admin.");
+        return;
+      }
+
+      const p = products.find(item => item.id === id);
+      if (!p) return;
+
+      editingId = id;
+
+      titleInput.value = p.title || "";
+      priceInput.value = p.price || "";
+      categoryInput.value = p.category || "";
+      badgeInput.value = p.badge || "";
+      imageUrlInput.value = p.imageUrl || "";
+      linkInput.value = p.link || "";
+      descriptionInput.value = p.description || "";
+
+      saveBtn.textContent = "Update Produk";
+      adminPanel.scrollIntoView({ behavior: "smooth" });
+    };
+
+    window.deleteProduct = async function(id) {
+      if (!isAdmin()) {
+        alert("Kamu bukan admin.");
+        return;
+      }
+
+      const yakin = confirm("Yakin mau hapus produk ini?");
+      if (!yakin) return;
+
+      try {
+        await deleteDoc(doc(db, "products", id));
+        alert("Produk berhasil dihapus.");
+      } catch (error) {
+        alert("Gagal hapus: " + error.message);
+      }
+    };
+
+    window.copyLink = async function(encodedLink) {
+      const link = decodeURIComponent(encodedLink);
+
+      try {
+        await navigator.clipboard.writeText(link);
+        alert("Link berhasil disalin.");
+      } catch {
+        prompt("Salin link ini:", link);
+      }
+    };
+
+    searchInput.addEventListener("input", renderProducts);
+    categoryFilter.addEventListener("change", renderProducts);
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+          </html>
