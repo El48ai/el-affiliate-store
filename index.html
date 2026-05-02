@@ -9,27 +9,19 @@
   <meta name="theme-color" content="#ff4d00" />
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     :root {
       --orange: #ff4d00;
       --orange2: #ff8a00;
       --dark: #111827;
-      --soft-dark: #1f2937;
       --muted: #6b7280;
       --bg: #f8fafc;
-      --card: #ffffff;
       --border: #e5e7eb;
-      --green: #16a34a;
       --red: #dc2626;
-      --yellow: #facc15;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -41,10 +33,7 @@
       color: var(--dark);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     .container {
       width: min(1150px, 92%);
@@ -55,7 +44,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.88);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
@@ -74,7 +63,6 @@
       gap: 11px;
       font-weight: 900;
       font-size: 18px;
-      letter-spacing: -.3px;
     }
 
     .logo-badge {
@@ -92,14 +80,12 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-size: 14px;
-    }
-
-    .nav-actions a {
-      color: var(--muted);
       font-weight: 700;
     }
+
+    .nav-actions a { color: var(--muted); }
 
     .btn {
       border: 0;
@@ -149,9 +135,7 @@
       letter-spacing: -2.2px;
     }
 
-    .hero h1 span {
-      color: var(--orange);
-    }
+    .hero h1 span { color: var(--orange); }
 
     .hero p {
       margin: 0 0 23px;
@@ -174,18 +158,6 @@
       background: rgba(255,255,255,.86);
       border: 1px solid var(--border);
       box-shadow: 0 30px 80px rgba(17,24,39,.09);
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      width: 230px;
-      height: 230px;
-      top: -72px;
-      right: -72px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--orange), transparent);
-      opacity: .23;
     }
 
     .black-card {
@@ -219,7 +191,6 @@
     }
 
     .stat {
-      position: relative;
       background: white;
       border: 1px solid var(--border);
       border-radius: 22px;
@@ -310,9 +281,7 @@
       gap: 12px;
     }
 
-    .full {
-      grid-column: 1 / -1;
-    }
+    .full { grid-column: 1 / -1; }
 
     .admin-actions {
       display: flex;
@@ -332,7 +301,6 @@
     .section-title h2 {
       margin: 0 0 4px;
       font-size: 31px;
-      letter-spacing: -.6px;
     }
 
     .section-title p {
@@ -371,8 +339,7 @@
 
     .product-img {
       aspect-ratio: 1 / 1;
-      background:
-        radial-gradient(circle at center, #ffffff, #f3f4f6);
+      background: radial-gradient(circle at center, #ffffff, #f3f4f6);
       display: grid;
       place-items: center;
       overflow: hidden;
@@ -393,9 +360,7 @@
       background: linear-gradient(135deg, #fff7ed, #f3f4f6);
     }
 
-    .product-body {
-      padding: 16px;
-    }
+    .product-body { padding: 16px; }
 
     .badge {
       display: inline-flex;
@@ -470,9 +435,7 @@
       line-height: 1.6;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     footer {
       text-align: center;
@@ -483,50 +446,19 @@
     }
 
     @media (max-width: 930px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding-top: 35px;
-      }
-
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; padding-top: 35px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .toolbar { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
-      .nav-actions a:not(.admin-link) {
-        display: none;
-      }
-
-      .hero h1 {
-        letter-spacing: -1.3px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card,
-      .admin-panel {
-        padding: 18px;
-        border-radius: 26px;
-      }
-
-      .section-title {
-        display: block;
-      }
+      .nav-actions a:not(.admin-link) { display: none; }
+      .hero h1 { letter-spacing: -1.3px; }
+      .stats { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .hero-card, .admin-panel { padding: 18px; border-radius: 26px; }
+      .section-title { display: block; }
     }
   </style>
 </head>
@@ -597,7 +529,7 @@
         </div>
       </div>
 
-      <div class="notice">
+      <div class="notice" id="noticeBox">
         Data produk tersimpan di <b>Firebase Console → Cloud Firestore → Data → products</b>.
         Kamu tidak perlu edit index.html lagi setiap tambah link Shopee.
       </div>
@@ -657,8 +589,8 @@
     import {
       getAuth,
       GoogleAuthProvider,
-      signInWithPopup,
       signInWithRedirect,
+      getRedirectResult,
       signOut,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -692,6 +624,10 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
+    provider.setCustomParameters({
+      prompt: "select_account"
+    });
+
     const $ = (id) => document.getElementById(id);
 
     const adminPanel = $("adminPanel");
@@ -700,6 +636,7 @@
     const adminStatus = $("adminStatus");
     const loginBtn = $("loginBtn");
     const logoutBtn = $("logoutBtn");
+    const noticeBox = $("noticeBox");
 
     const titleInput = $("title");
     const priceInput = $("price");
@@ -727,19 +664,33 @@
       adminPanel.style.display = "block";
     }
 
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result && result.user) {
+          console.log("Login berhasil:", result.user.email);
+        }
+      })
+      .catch((error) => {
+        console.error("Redirect login error:", error);
+        adminPanel.style.display = "block";
+
+        let pesan = error.message;
+
+        if (error.code === "auth/unauthorized-domain") {
+          pesan =
+            "Domain belum diizinkan di Firebase. Tambahkan el48ai.github.io di Authentication → Pengaturan → Domain yang diizinkan.";
+        }
+
+        noticeBox.innerHTML = `<b>Login gagal:</b> ${escapeHtml(pesan)}`;
+        alert("Login gagal: " + pesan);
+      });
+
     loginBtn.addEventListener("click", async () => {
       try {
-        await signInWithPopup(auth, provider);
+        await signInWithRedirect(auth, provider);
       } catch (error) {
-        if (
-          error.code === "auth/popup-blocked" ||
-          error.code === "auth/popup-closed-by-user" ||
-          error.code === "auth/cancelled-popup-request"
-        ) {
-          await signInWithRedirect(auth, provider);
-        } else {
-          alert("Gagal login: " + error.message);
-        }
+        console.error(error);
+        alert("Gagal login: " + error.message);
       }
     });
 
@@ -765,9 +716,13 @@
       if (user.email === ADMIN_EMAIL) {
         adminStatus.textContent = "Login sebagai admin: " + user.email;
         productForm.classList.remove("hidden");
+        noticeBox.innerHTML =
+          "Kamu login sebagai <b>admin</b>. Sekarang bisa tambah, edit, dan hapus produk.";
       } else {
         adminStatus.textContent = "Akun ini bukan admin: " + user.email;
         productForm.classList.add("hidden");
+        noticeBox.innerHTML =
+          "Akun ini bukan admin. Logout lalu login memakai email: <b>" + ADMIN_EMAIL + "</b>";
       }
 
       renderProducts();
@@ -1021,4 +976,4 @@
     }
   </script>
 </body>
-          </html>
+</html>
