@@ -16,7 +16,6 @@
       --orange2: #ff8a00;
       --dark: #111827;
       --muted: #6b7280;
-      --bg: #f8fafc;
       --border: #e5e7eb;
       --red: #dc2626;
     }
@@ -520,11 +519,11 @@
       <div class="admin-head">
         <div>
           <h2>Panel Admin</h2>
-          <p id="adminStatus">Login dengan Gmail admin untuk tambah produk.</p>
+          <p id="adminStatus">Login dengan password admin untuk tambah produk.</p>
         </div>
 
         <div>
-          <button id="loginBtn" class="btn btn-orange" type="button">Login Google</button>
+          <button id="loginBtn" class="btn btn-orange" type="button">Login Admin</button>
           <button id="logoutBtn" class="btn btn-soft hidden" type="button">Logout</button>
         </div>
       </div>
@@ -588,9 +587,7 @@
 
     import {
       getAuth,
-      GoogleAuthProvider,
-      signInWithRedirect,
-      getRedirectResult,
+      signInWithEmailAndPassword,
       signOut,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -622,11 +619,6 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-
-    provider.setCustomParameters({
-      prompt: "select_account"
-    });
 
     const $ = (id) => document.getElementById(id);
 
@@ -664,33 +656,25 @@
       adminPanel.style.display = "block";
     }
 
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result && result.user) {
-          console.log("Login berhasil:", result.user.email);
-        }
-      })
-      .catch((error) => {
-        console.error("Redirect login error:", error);
-        adminPanel.style.display = "block";
+    loginBtn.addEventListener("click", async () => {
+      const password = prompt("Masukkan password admin:");
 
+      if (!password) return;
+
+      try {
+        await signInWithEmailAndPassword(auth, ADMIN_EMAIL, password);
+      } catch (error) {
         let pesan = error.message;
 
-        if (error.code === "auth/unauthorized-domain") {
-          pesan =
-            "Domain belum diizinkan di Firebase. Tambahkan el48ai.github.io di Authentication → Pengaturan → Domain yang diizinkan.";
+        if (error.code === "auth/invalid-credential") {
+          pesan = "Email atau password salah.";
         }
 
-        noticeBox.innerHTML = `<b>Login gagal:</b> ${escapeHtml(pesan)}`;
-        alert("Login gagal: " + pesan);
-      });
+        if (error.code === "auth/too-many-requests") {
+          pesan = "Terlalu banyak percobaan login. Tunggu beberapa menit lalu coba lagi.";
+        }
 
-    loginBtn.addEventListener("click", async () => {
-      try {
-        await signInWithRedirect(auth, provider);
-      } catch (error) {
-        console.error(error);
-        alert("Gagal login: " + error.message);
+        alert("Login gagal: " + pesan);
       }
     });
 
@@ -702,7 +686,7 @@
       currentUser = user;
 
       if (!user) {
-        adminStatus.textContent = "Belum login. Login memakai Gmail admin.";
+        adminStatus.textContent = "Belum login. Klik Login Admin lalu masukkan password.";
         loginBtn.classList.remove("hidden");
         logoutBtn.classList.add("hidden");
         productForm.classList.add("hidden");
