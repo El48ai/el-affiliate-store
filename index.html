@@ -3,683 +3,1141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>EL Affiliate Store</title>
   <meta name="description" content="Kumpulan produk Shopee Affiliate pilihan, murah, viral, dan berguna." />
-  <meta name="theme-color" content="#ff4d00" />
+  <meta name="theme-color" content="#e8390e" />
+
+  <!-- SECURITY: CSP header via meta -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' https: data: 'unsafe-inline'; script-src 'self' https://www.gstatic.com 'unsafe-inline'; connect-src https://*.googleapis.com https://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebaseio.com;" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --orange: #ff4d00;
-      --orange2: #ff8a00;
-      --dark: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --red: #dc2626;
+      --orange:   #e8390e;
+      --orange2:  #f97316;
+      --amber:    #fbbf24;
+      --dark:     #0f0f0f;
+      --dark2:    #1a1a1a;
+      --surface:  #ffffff;
+      --muted:    #71717a;
+      --border:   #e4e4e7;
+      --light-bg: #fafafa;
+      --danger:   #dc2626;
+      --danger-bg:#fef2f2;
+      --success:  #16a34a;
+      --success-bg:#f0fdf4;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-xl: 36px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md: 0 4px 24px rgba(0,0,0,.08);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,.1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(255, 77, 0, .17), transparent 34%),
-        radial-gradient(circle at top left, rgba(255, 138, 0, .10), transparent 28%),
-        linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      font-family: 'Outfit', sans-serif;
+      background: var(--light-bg);
       color: var(--dark);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
     a { color: inherit; text-decoration: none; }
 
+    /* ── TOAST ─────────────────────────────── */
+    #toastContainer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: all;
+      min-width: 280px;
+      max-width: 360px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      background: var(--dark);
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      animation: toastIn .3s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .toast.success { background: #14532d; }
+    .toast.error   { background: #7f1d1d; }
+    .toast.warning { background: #78350f; }
+
+    .toast-icon { font-size: 18px; flex-shrink: 0; }
+
+    @keyframes toastIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to   { transform: translateX(0);   opacity: 1; }
+    }
+
+    @keyframes toastOut {
+      from { transform: translateX(0);   opacity: 1; }
+      to   { transform: translateX(120%); opacity: 0; }
+    }
+
+    /* ── MODAL ─────────────────────────────── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.active { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+      animation: modalIn .25s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    @keyframes modalIn {
+      from { transform: scale(.92); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .modal h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .modal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ── LAYOUT ────────────────────────────── */
     .container {
-      width: min(1150px, 92%);
+      width: min(1180px, 92%);
       margin: auto;
     }
 
+    /* ── HEADER ────────────────────────────── */
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(255,255,255,.88);
-      backdrop-filter: blur(18px);
+      z-index: 100;
+      background: rgba(250,250,250,.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav {
-      height: 72px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
       font-weight: 900;
-      font-size: 18px;
     }
 
-    .logo-badge {
-      width: 43px;
-      height: 43px;
-      border-radius: 15px;
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
       display: grid;
       place-items: center;
       color: white;
+      font-family: 'Syne', sans-serif;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--orange), var(--orange2));
-      box-shadow: 0 14px 30px rgba(255,77,0,.28);
+      font-size: 15px;
+      box-shadow: 0 8px 20px rgba(232,57,14,.3);
+      flex-shrink: 0;
     }
 
-    .nav-actions {
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 700;
+      gap: 6px;
     }
 
-    .nav-actions a { color: var(--muted); }
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: .15s;
+    }
 
+    .nav-links a:hover {
+      background: white;
+      color: var(--dark);
+    }
+
+    /* ── BUTTONS ───────────────────────────── */
     .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
       border: 0;
       cursor: pointer;
       border-radius: 999px;
-      padding: 12px 18px;
-      font-weight: 900;
-      background: var(--dark);
-      color: white;
-      transition: .2s ease;
+      padding: 12px 22px;
+      font-family: 'Outfit', sans-serif;
       font-size: 14px;
+      font-weight: 700;
+      transition: .2s ease;
+      white-space: nowrap;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      opacity: .93;
-    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    .btn-orange {
+    .btn-primary {
       background: linear-gradient(135deg, var(--orange), var(--orange2));
       color: white;
-      box-shadow: 0 14px 28px rgba(255,77,0,.24);
+      box-shadow: 0 8px 24px rgba(232,57,14,.28);
+    }
+
+    .btn-dark {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-ghost {
+      background: white;
+      color: var(--dark);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-soft {
-      background: #fff3ed;
+      background: #fff0ec;
       color: var(--orange);
     }
 
     .btn-danger {
-      background: #fee2e2;
-      color: var(--red);
+      background: var(--danger-bg);
+      color: var(--danger);
     }
 
+    .btn-sm {
+      padding: 9px 16px;
+      font-size: 13px;
+    }
+
+    /* ── HERO ──────────────────────────────── */
     .hero {
-      padding: 52px 0 35px;
+      padding: 56px 0 44px;
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 34px;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
       align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #fff0ec;
+      color: var(--orange);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      margin: 0 0 18px;
-      font-size: clamp(38px, 6vw, 72px);
-      line-height: .96;
-      letter-spacing: -2.2px;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(40px, 5.5vw, 68px);
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
     }
 
-    .hero h1 span { color: var(--orange); }
+    .hero h1 .accent { color: var(--orange); }
 
     .hero p {
-      margin: 0 0 23px;
       color: var(--muted);
       font-size: 17px;
       line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 28px;
     }
 
-    .hero-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
 
+    /* ── HERO CARD ─────────────────────────── */
     .hero-card {
-      position: relative;
-      overflow: hidden;
-      padding: 24px;
-      border-radius: 34px;
-      background: rgba(255,255,255,.86);
+      background: white;
+      border-radius: var(--radius-xl);
       border: 1px solid var(--border);
-      box-shadow: 0 30px 80px rgba(17,24,39,.09);
-    }
-
-    .black-card {
-      position: relative;
-      padding: 23px;
-      border-radius: 27px;
-      color: white;
-      background:
-        radial-gradient(circle at top right, rgba(255,138,0,.35), transparent 36%),
-        linear-gradient(135deg, #111827, #1f2937);
+      box-shadow: var(--shadow-lg);
       overflow: hidden;
     }
 
-    .black-card h2 {
-      margin: 0 0 10px;
-      font-size: 32px;
-      line-height: 1.1;
+    .hero-card-top {
+      background: linear-gradient(135deg, var(--dark2), #2d2d2d);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .black-card p {
-      margin: 0;
-      color: rgba(255,255,255,.75);
+    .hero-card-top::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,57,14,.35), transparent 70%);
+    }
+
+    .hero-card-top h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .hero-card-top p {
+      color: rgba(255,255,255,.65);
+      font-size: 14px;
       line-height: 1.6;
+      position: relative;
     }
 
-    .stats {
+    .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 16px;
+      padding: 18px;
+      gap: 12px;
     }
 
-    .stat {
-      background: white;
+    .hero-stat {
+      background: var(--light-bg);
       border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 17px;
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      text-align: center;
     }
 
-    .stat b {
-      color: var(--orange);
-      font-size: 23px;
+    .hero-stat strong {
       display: block;
-      margin-bottom: 3px;
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      color: var(--orange);
+      margin-bottom: 4px;
     }
 
-    .stat span {
+    .hero-stat span {
+      font-size: 12px;
       color: var(--muted);
-      font-size: 13px;
       line-height: 1.4;
     }
 
+    /* ── ADMIN PANEL ───────────────────────── */
     .admin-panel {
       display: none;
-      margin: 28px 0;
-      padding: 24px;
-      border-radius: 30px;
       background: white;
       border: 1px solid var(--border);
-      box-shadow: 0 24px 70px rgba(17,24,39,.08);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin: 32px 0;
     }
 
-    .admin-head {
+    .admin-header {
+      background: linear-gradient(135deg, var(--dark2), #2d2d2d);
+      padding: 24px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
     }
 
-    .admin-head h2 {
-      margin: 0 0 5px;
-      font-size: 26px;
+    .admin-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      color: white;
+      margin-bottom: 4px;
     }
 
-    .admin-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
+    .admin-header p {
+      color: rgba(255,255,255,.6);
+      font-size: 13px;
     }
+
+    .admin-body { padding: 24px 28px; }
 
     .notice {
-      padding: 14px 16px;
-      border-radius: 18px;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
       background: #fff7ed;
-      border: 1px dashed #fed7aa;
-      color: #7c2d12;
-      font-size: 14px;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: 13.5px;
       line-height: 1.6;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    input, select, textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 14px 15px;
-      font-size: 15px;
-      outline: none;
-      background: white;
+    .notice.success {
+      background: var(--success-bg);
+      border-color: #bbf7d0;
+      color: #14532d;
     }
 
-    textarea {
-      min-height: 92px;
-      resize: vertical;
-      font-family: Arial, sans-serif;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 4px rgba(255,77,0,.10);
-    }
-
+    /* ── FORM ──────────────────────────────── */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
     .full { grid-column: 1 / -1; }
 
-    .admin-actions {
+    label.field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label.field span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    label.field small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 15px;
+      font-size: 14.5px;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+      background: var(--light-bg);
+      color: var(--dark);
+      transition: .15s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--orange);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(232,57,14,.1);
+    }
+
+    textarea { min-height: 88px; resize: vertical; }
+
+    .form-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 13px;
+      margin-top: 16px;
     }
 
-    .section-title {
-      margin: 36px 0 16px;
+    /* ── SECTION ───────────────────────────── */
+    .section-head {
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 16px;
+      margin: 40px 0 18px;
     }
 
-    .section-title h2 {
-      margin: 0 0 4px;
-      font-size: 31px;
+    .section-head h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 30px;
+      letter-spacing: -1px;
+      margin-bottom: 4px;
     }
 
-    .section-title p {
-      margin: 0;
+    .section-head p { color: var(--muted); font-size: 15px; }
+
+    #productCount {
+      font-size: 13px;
       color: var(--muted);
-      line-height: 1.5;
+      white-space: nowrap;
     }
 
+    /* ── TOOLBAR ───────────────────────────── */
     .toolbar {
-      margin: 18px 0 20px;
       display: grid;
-      grid-template-columns: 1fr 190px;
+      grid-template-columns: 1fr 200px;
       gap: 12px;
+      margin-bottom: 22px;
     }
 
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-wrap input {
+      padding-left: 44px;
+    }
+
+    /* ── PRODUCT GRID ──────────────────────── */
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
-      padding-bottom: 45px;
+      padding-bottom: 60px;
     }
 
-    .product {
-      overflow: hidden;
-      border-radius: 28px;
+    /* ── SKELETON ──────────────────────────── */
+    .skeleton-card {
       background: white;
+      border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      box-shadow: 0 18px 45px rgba(17,24,39,.065);
-      transition: .2s ease;
+      overflow: hidden;
+    }
+
+    .skeleton-img {
+      aspect-ratio: 1;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    .skeleton-body { padding: 16px; }
+
+    .skeleton-line {
+      height: 12px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      margin-bottom: 10px;
+    }
+
+    .skeleton-line.short { width: 60%; }
+    .skeleton-line.medium { width: 80%; }
+
+    @keyframes shimmer {
+      0%   { background-position:  200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── PRODUCT CARD ──────────────────────── */
+    .product {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: .22s ease;
+      box-shadow: var(--shadow-sm);
     }
 
     .product:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 26px 60px rgba(17,24,39,.12);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.11);
+      border-color: transparent;
     }
 
-    .product-img {
-      aspect-ratio: 1 / 1;
-      background: radial-gradient(circle at center, #ffffff, #f3f4f6);
-      display: grid;
-      place-items: center;
+    .product-thumb {
+      aspect-ratio: 1;
+      background: var(--light-bg);
       overflow: hidden;
+      position: relative;
     }
 
-    .product-img img {
+    .product-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: .35s ease;
     }
+
+    .product:hover .product-thumb img { transform: scale(1.04); }
 
     .no-img {
       width: 100%;
       height: 100%;
       display: grid;
       place-items: center;
-      font-size: 54px;
-      background: linear-gradient(135deg, #fff7ed, #f3f4f6);
+      font-size: 52px;
+      background: linear-gradient(135deg, #fff7ed 0%, #fafafa 100%);
     }
 
-    .product-body { padding: 16px; }
+    .product-body { padding: 15px 16px 16px; }
 
-    .badge {
+    .badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      margin-bottom: 9px;
-      padding: 6px 10px;
+      gap: 4px;
+      padding: 5px 10px;
       border-radius: 999px;
-      background: #fff3ed;
+      background: #fff0ec;
       color: var(--orange);
-      font-size: 12px;
-      font-weight: 900;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     .product h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      line-height: 1.35;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      line-height: 1.4;
+      margin-bottom: 7px;
     }
 
-    .price {
-      margin-bottom: 8px;
-      color: var(--orange);
-      font-size: 18px;
+    .product-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
       font-weight: 900;
+      color: var(--orange);
+      margin-bottom: 6px;
     }
 
-    .desc {
-      min-height: 42px;
-      color: var(--muted);
+    .product-desc {
       font-size: 13px;
-      line-height: 1.5;
+      color: var(--muted);
+      line-height: 1.55;
+      min-height: 40px;
     }
 
     .product-actions {
       display: flex;
       gap: 8px;
-      margin-top: 13px;
-      flex-wrap: wrap;
+      margin-top: 14px;
     }
 
-    .product-actions a,
-    .product-actions button {
+    .card-btn {
       flex: 1;
       border: 0;
-      border-radius: 14px;
-      padding: 11px 10px;
-      font-weight: 900;
-      cursor: pointer;
-      text-align: center;
+      border-radius: var(--radius-sm);
+      padding: 11px 8px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
       font-size: 13px;
+      cursor: pointer;
+      transition: .15s;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
-    .buy {
+    .card-btn:hover { filter: brightness(.93); }
+
+    .card-btn-buy {
       background: linear-gradient(135deg, var(--orange), var(--orange2));
       color: white;
     }
 
-    .copy {
-      background: #f3f4f6;
+    .card-btn-copy {
+      background: var(--light-bg);
       color: var(--dark);
+      border: 1px solid var(--border);
     }
 
-    .empty {
+    .card-btn-edit {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .card-btn-delete {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .admin-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    /* ── EMPTY / ERROR ─────────────────────── */
+    .empty-state {
       grid-column: 1 / -1;
       background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px 24px;
       text-align: center;
       color: var(--muted);
-      line-height: 1.6;
     }
 
-    .hidden { display: none !important; }
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 14px;
+      opacity: .6;
+    }
 
+    .empty-state h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    /* ── FOOTER ────────────────────────────── */
     footer {
       text-align: center;
       color: var(--muted);
-      padding: 30px 0 55px;
-      font-size: 14px;
-      line-height: 1.6;
+      padding: 28px 0 56px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 930px) {
-      .hero { grid-template-columns: 1fr; padding-top: 35px; }
+    /* ── DIVIDER ───────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 28px;
+    }
+
+    /* ── UTILITIES ─────────────────────────── */
+    .hidden { display: none !important; }
+
+    /* ── RESPONSIVE ────────────────────────── */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding-top: 38px; }
       .grid { grid-template-columns: repeat(2, 1fr); }
       .toolbar { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
-      .nav-actions a:not(.admin-link) { display: none; }
-      .hero h1 { letter-spacing: -1.3px; }
-      .stats { grid-template-columns: 1fr; }
+      .hero h1 { letter-spacing: -1.2px; }
+      .hero-stats { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
       .form-grid { grid-template-columns: 1fr; }
-      .hero-card, .admin-panel { padding: 18px; border-radius: 26px; }
-      .section-title { display: block; }
+      .section-head { display: block; }
+      .nav-links a:not(.admin-link) { display: none; }
+      #toastContainer { left: 16px; right: 16px; bottom: 16px; }
+      .toast { min-width: auto; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- ── TOAST CONTAINER ──────────────────── -->
+  <div id="toastContainer" aria-live="polite"></div>
+
+  <!-- ── CONFIRM MODAL ─────────────────────── -->
+  <div id="confirmModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3 id="confirmTitle">Konfirmasi</h3>
+      <p id="confirmMessage"></p>
+      <div class="modal-actions">
+        <button id="confirmOk"  class="btn btn-danger">Ya, Hapus</button>
+        <button id="confirmCancel" class="btn btn-ghost">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PASSWORD MODAL ─────────────────────── -->
+  <div id="passwordModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3>Login Admin</h3>
+      <p>Masukkan password untuk melanjutkan sebagai admin.</p>
+      <label class="field" style="margin-bottom: 16px;">
+        <span>Password</span>
+        <input type="password" id="passwordInput" placeholder="••••••••" autocomplete="current-password" />
+      </label>
+      <div class="modal-actions">
+        <button id="passwordOk"     class="btn btn-primary">Masuk</button>
+        <button id="passwordCancel" class="btn btn-ghost">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HEADER ────────────────────────────── -->
   <header>
     <div class="container nav">
       <a class="logo" href="./">
-        <div class="logo-badge">EL</div>
-        <div>EL Affiliate Store</div>
+        <div class="logo-mark">EL</div>
+        EL Affiliate Store
       </a>
-
-      <div class="nav-actions">
+      <nav class="nav-links">
         <a href="#produk">Produk</a>
         <a class="admin-link" href="?admin=1">Admin</a>
-      </div>
+      </nav>
     </div>
   </header>
 
   <main class="container">
+
+    <!-- ── HERO ──────────────────────────────── -->
     <section class="hero">
       <div>
-        <h1>Produk <span>Shopee pilihan</span> yang lagi viral.</h1>
+        <div class="hero-eyebrow">🔥 Shopee Affiliate Picks</div>
+        <h1>Produk <span class="accent">viral pilihan</span> yang lagi hits.</h1>
         <p>
           Kumpulan rekomendasi produk murah, berguna, dan menarik.
-          Klik tombol beli untuk langsung menuju produk Shopee.
+          Klik tombol beli untuk langsung menuju produk di Shopee.
         </p>
-
-        <div class="hero-buttons">
-          <a class="btn btn-orange" href="#produk">Lihat Produk</a>
-          <a class="btn btn-soft" href="?admin=1">Masuk Admin</a>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#produk">Lihat Semua Produk</a>
+          <a class="btn btn-ghost" href="?admin=1">Panel Admin</a>
         </div>
       </div>
 
       <div class="hero-card">
-        <div class="black-card">
-          <h2>Belanja lebih mudah</h2>
-          <p>Semua produk affiliate kamu tampil rapi, premium, dan bisa dicari pembeli.</p>
+        <div class="hero-card-top">
+          <h2>Belanja lebih mudah &amp; cepat</h2>
+          <p>Semua produk affiliate tampil rapi, bisa dicari, dan langsung terhubung ke Shopee.</p>
         </div>
-
-        <div class="stats">
-          <div class="stat">
-            <b>Update</b>
-            <span>Tambah produk dari panel admin</span>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>Live</strong>
+            <span>Produk update real-time</span>
           </div>
-          <div class="stat">
-            <b>Aman</b>
-            <span>Admin hanya email kamu</span>
+          <div class="hero-stat">
+            <strong>Aman</strong>
+            <span>Admin terautentikasi</span>
           </div>
-          <div class="stat">
-            <b>Cepat</b>
-            <span>Data tersimpan di Firebase</span>
+          <div class="hero-stat">
+            <strong>Cepat</strong>
+            <span>Firebase Firestore</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="adminPanel" class="admin-panel">
-      <div class="admin-head">
+    <!-- ── ADMIN PANEL ────────────────────── -->
+    <section id="adminPanel" class="admin-panel" aria-label="Panel Admin">
+      <div class="admin-header">
         <div>
           <h2>Panel Admin</h2>
           <p id="adminStatus">Login dengan password admin untuk tambah produk.</p>
         </div>
-
-        <div>
-          <button id="loginBtn" class="btn btn-orange" type="button">Login Admin</button>
-          <button id="logoutBtn" class="btn btn-soft hidden" type="button">Logout</button>
+        <div style="display:flex;gap:10px;">
+          <button id="loginBtn"  class="btn btn-primary btn-sm" type="button">Login Admin</button>
+          <button id="logoutBtn" class="btn btn-ghost btn-sm hidden" type="button">Logout</button>
         </div>
       </div>
 
-      <div class="notice" id="noticeBox">
-        Data produk tersimpan di <b>Firebase Console → Cloud Firestore → Data → products</b>.
-        Kamu tidak perlu edit index.html lagi setiap tambah link Shopee.
+      <div class="admin-body">
+        <div class="notice" id="noticeBox">
+          Data produk tersimpan di <b>Firebase Firestore → products</b>.
+          Kamu tidak perlu edit file HTML lagi setiap tambah link Shopee.
+        </div>
+
+        <form id="productForm" class="hidden" novalidate>
+          <div class="form-grid">
+            <label class="field">
+              <span>Nama Produk <span style="color:var(--danger)">*</span></span>
+              <input id="f-title" type="text" placeholder="Kipas Mini Portable USB" maxlength="120" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>Harga</span>
+              <input id="f-price" type="text" placeholder="Rp39.900" maxlength="40" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>Kategori</span>
+              <input id="f-category" type="text" placeholder="Gadget / Dapur / Fashion…" maxlength="50" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>Label / Badge</span>
+              <input id="f-badge" type="text" placeholder="Viral / Best Seller / Flash Sale" maxlength="50" autocomplete="off" />
+            </label>
+
+            <label class="field full">
+              <span>URL Gambar</span>
+              <small>Pakai link gambar dari Shopee atau CDN lain</small>
+              <input id="f-image" type="url" placeholder="https://down-id.img.susercontent.com/..." maxlength="500" autocomplete="off" />
+            </label>
+
+            <label class="field full">
+              <span>Link Affiliate Shopee <span style="color:var(--danger)">*</span></span>
+              <input id="f-link" type="url" placeholder="https://s.shopee.co.id/…" maxlength="500" autocomplete="off" />
+            </label>
+
+            <label class="field full">
+              <span>Deskripsi Singkat</span>
+              <textarea id="f-desc" placeholder="Kipas mini kencang, cocok untuk cuaca panas, bisa isi ulang via USB." maxlength="400"></textarea>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button id="saveBtn"  class="btn btn-primary" type="submit">Simpan Produk</button>
+            <button id="resetBtn" class="btn btn-ghost"   type="button">Reset Form</button>
+          </div>
+        </form>
       </div>
-
-      <form id="productForm" class="hidden">
-        <div class="form-grid">
-          <input id="title" placeholder="Nama produk, contoh: Kipas Mini Portable" required />
-          <input id="price" placeholder="Harga, contoh: Rp39.900" />
-
-          <input id="category" placeholder="Kategori, contoh: Gadget" />
-          <input id="badge" placeholder="Label, contoh: Viral / Promo / Best Seller" />
-
-          <input id="imageUrl" class="full" placeholder="URL gambar produk, contoh: https://..." />
-
-          <input id="link" class="full" placeholder="Link affiliate Shopee, contoh: https://s.shopee.co.id/..." required />
-
-          <textarea id="description" class="full" placeholder="Deskripsi singkat produk, contoh: Kipas mini kencang, cocok untuk cuaca panas."></textarea>
-        </div>
-
-        <div class="admin-actions">
-          <button id="saveBtn" class="btn btn-orange" type="submit">Simpan Produk</button>
-          <button id="resetBtn" class="btn btn-soft" type="button">Reset</button>
-        </div>
-      </form>
     </section>
 
+    <!-- ── PRODUCTS ───────────────────────── -->
     <section id="produk">
-      <div class="section-title">
+      <div class="section-head">
         <div>
           <h2>Produk Pilihan</h2>
           <p>Rekomendasi produk Shopee Affiliate terbaik.</p>
         </div>
+        <span id="productCount"></span>
       </div>
 
       <div class="toolbar">
-        <input id="searchInput" placeholder="Cari produk..." />
-        <select id="categoryFilter">
+        <div class="search-wrap">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input id="searchInput" type="search" placeholder="Cari nama, kategori, atau deskripsi…" aria-label="Cari produk" />
+        </div>
+        <select id="categoryFilter" aria-label="Filter kategori">
           <option value="">Semua kategori</option>
         </select>
       </div>
 
-      <div id="productGrid" class="grid">
-        <div class="empty">Memuat produk...</div>
-      </div>
+      <div id="productGrid" class="grid" role="list"></div>
     </section>
+
   </main>
 
   <footer>
-    © <span id="year"></span> EL Affiliate Store.
-    <br />
-    Website ini berisi rekomendasi produk dengan link affiliate Shopee.
+    <div class="container">
+      © <span id="year"></span> EL Affiliate Store.
+      <br />
+      Website ini berisi rekomendasi produk dengan link affiliate Shopee.
+    </div>
   </footer>
 
+  <!-- ── FIREBASE + APP SCRIPT ──────────── -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-
     import {
-      getAuth,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged
+      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
     import {
-      getFirestore,
-      collection,
-      addDoc,
-      updateDoc,
-      deleteDoc,
-      doc,
-      onSnapshot,
-      query,
-      orderBy,
-      serverTimestamp
+      getFirestore, collection, addDoc, updateDoc, deleteDoc,
+      doc, onSnapshot, query, orderBy, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+    /* ─── CONFIG ─────────────────────────── */
     const firebaseConfig = {
-      apiKey: "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
-      authDomain: "el-affiliate-store.firebaseapp.com",
-      projectId: "el-affiliate-store",
-      storageBucket: "el-affiliate-store.firebasestorage.app",
+      apiKey:            "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
+      authDomain:        "el-affiliate-store.firebaseapp.com",
+      projectId:         "el-affiliate-store",
+      storageBucket:     "el-affiliate-store.firebasestorage.app",
       messagingSenderId: "1023817787454",
-      appId: "1:1023817787454:web:7516b1a8e4d2d989a6896f"
+      appId:             "1:1023817787454:web:7516b1a8e4d2d989a6896f"
     };
 
+    /* SECURITY NOTE: Admin authorization is enforced by Firebase Auth +
+       Firestore Security Rules on the server side. Client-side checks are
+       convenience only — rules must be set in Firebase Console. */
     const ADMIN_EMAIL = "aliansikonoha25@gmail.com";
 
-    const app = initializeApp(firebaseConfig);
+    const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db = getFirestore(app);
+    const db   = getFirestore(app);
 
-    const $ = (id) => document.getElementById(id);
+    /* ─── ELEMENTS ───────────────────────── */
+    const $id = (id) => document.getElementById(id);
 
-    const adminPanel = $("adminPanel");
-    const productGrid = $("productGrid");
-    const productForm = $("productForm");
-    const adminStatus = $("adminStatus");
-    const loginBtn = $("loginBtn");
-    const logoutBtn = $("logoutBtn");
-    const noticeBox = $("noticeBox");
+    const adminPanel   = $id("adminPanel");
+    const adminStatus  = $id("adminStatus");
+    const loginBtn     = $id("loginBtn");
+    const logoutBtn    = $id("logoutBtn");
+    const noticeBox    = $id("noticeBox");
+    const productForm  = $id("productForm");
+    const saveBtn      = $id("saveBtn");
+    const productGrid  = $id("productGrid");
+    const productCount = $id("productCount");
+    const searchInput  = $id("searchInput");
+    const catFilter    = $id("categoryFilter");
 
-    const titleInput = $("title");
-    const priceInput = $("price");
-    const categoryInput = $("category");
-    const badgeInput = $("badge");
-    const imageUrlInput = $("imageUrl");
-    const linkInput = $("link");
-    const descriptionInput = $("description");
-    const saveBtn = $("saveBtn");
-    const resetBtn = $("resetBtn");
+    const fTitle  = $id("f-title");
+    const fPrice  = $id("f-price");
+    const fCat    = $id("f-category");
+    const fBadge  = $id("f-badge");
+    const fImage  = $id("f-image");
+    const fLink   = $id("f-link");
+    const fDesc   = $id("f-desc");
 
-    const searchInput = $("searchInput");
-    const categoryFilter = $("categoryFilter");
-
-    let products = [];
+    /* ─── STATE ──────────────────────────── */
+    let products    = [];
     let currentUser = null;
-    let editingId = null;
+    let editingId   = null;
+    let loaded      = false;
 
-    $("year").textContent = new Date().getFullYear();
+    $id("year").textContent = new Date().getFullYear();
 
-    const params = new URLSearchParams(location.search);
-    const isAdminPage = params.has("admin") || location.hash === "#admin";
+    const isAdminPage = new URLSearchParams(location.search).has("admin");
+    if (isAdminPage) adminPanel.style.display = "block";
 
-    if (isAdminPage) {
-      adminPanel.style.display = "block";
+    /* ─── TOAST ──────────────────────────── */
+    function toast(message, type = "info", duration = 3500) {
+      const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
+      const el = document.createElement("div");
+      el.className = `toast ${type}`;
+      el.setAttribute("role", "alert");
+      el.innerHTML = `<span class="toast-icon">${icons[type] ?? "ℹ️"}</span><span>${sanitize(message)}</span>`;
+      $id("toastContainer").appendChild(el);
+      setTimeout(() => {
+        el.style.animation = "toastOut .3s ease forwards";
+        el.addEventListener("animationend", () => el.remove());
+      }, duration);
     }
 
-    loginBtn.addEventListener("click", async () => {
-      const password = prompt("Masukkan password admin:");
+    /* ─── CONFIRM MODAL ──────────────────── */
+    function confirm(title, message) {
+      return new Promise((resolve) => {
+        $id("confirmTitle").textContent   = title;
+        $id("confirmMessage").textContent = message;
+        const backdrop = $id("confirmModal");
+        backdrop.classList.add("active");
 
+        const ok = $id("confirmOk");
+        const cancel = $id("confirmCancel");
+
+        const cleanup = (result) => {
+          backdrop.classList.remove("active");
+          ok.removeEventListener("click", onOk);
+          cancel.removeEventListener("click", onCancel);
+          resolve(result);
+        };
+
+        const onOk     = () => cleanup(true);
+        const onCancel = () => cleanup(false);
+
+        ok.addEventListener("click",     onOk,     { once: true });
+        cancel.addEventListener("click", onCancel, { once: true });
+      });
+    }
+
+    /* ─── PASSWORD MODAL ─────────────────── */
+    function promptPassword() {
+      return new Promise((resolve) => {
+        const modal = $id("passwordModal");
+        const input = $id("passwordInput");
+        modal.classList.add("active");
+        input.value = "";
+        setTimeout(() => input.focus(), 100);
+
+        const ok     = $id("passwordOk");
+        const cancel = $id("passwordCancel");
+
+        const cleanup = (val) => {
+          modal.classList.remove("active");
+          input.value = "";
+          ok.removeEventListener("click",     onOk);
+          cancel.removeEventListener("click", onCancel);
+          input.removeEventListener("keydown", onKey);
+          resolve(val);
+        };
+
+        const onOk     = ()  => cleanup(input.value);
+        const onCancel = ()  => cleanup(null);
+        const onKey    = (e) => { if (e.key === "Enter") cleanup(input.value); };
+
+        ok.addEventListener("click",     onOk);
+        cancel.addEventListener("click", onCancel);
+        input.addEventListener("keydown", onKey);
+      });
+    }
+
+    /* ─── SANITIZE (basic XSS protection) ── */
+    function sanitize(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;");
+    }
+
+    /* ─── VALIDATE URL ───────────────────── */
+    function isSafeUrl(url) {
+      try {
+        const u = new URL(url);
+        return u.protocol === "https:" || u.protocol === "http:";
+      } catch {
+        return false;
+      }
+    }
+
+    /* ─── AUTH ───────────────────────────── */
+    loginBtn.addEventListener("click", async () => {
+      const password = await promptPassword();
       if (!password) return;
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = "Memverifikasi…";
 
       try {
         await signInWithEmailAndPassword(auth, ADMIN_EMAIL, password);
-      } catch (error) {
-        let pesan = error.message;
-
-        if (error.code === "auth/invalid-credential") {
-          pesan = "Email atau password salah.";
-        }
-
-        if (error.code === "auth/too-many-requests") {
-          pesan = "Terlalu banyak percobaan login. Tunggu beberapa menit lalu coba lagi.";
-        }
-
-        alert("Login gagal: " + pesan);
+        toast("Login berhasil!", "success");
+      } catch (err) {
+        const map = {
+          "auth/invalid-credential":  "Email atau password salah.",
+          "auth/too-many-requests":   "Terlalu banyak percobaan. Coba lagi beberapa menit.",
+          "auth/network-request-failed": "Gagal terhubung ke server. Periksa koneksi internet.",
+        };
+        toast(map[err.code] ?? "Login gagal. Coba lagi.", "error");
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Login Admin";
       }
     });
 
     logoutBtn.addEventListener("click", async () => {
       await signOut(auth);
+      toast("Berhasil logout.", "info");
     });
 
     onAuthStateChanged(auth, (user) => {
@@ -698,15 +1156,14 @@
       logoutBtn.classList.remove("hidden");
 
       if (user.email === ADMIN_EMAIL) {
-        adminStatus.textContent = "Login sebagai admin: " + user.email;
+        adminStatus.textContent = "Login sebagai admin ✓";
         productForm.classList.remove("hidden");
-        noticeBox.innerHTML =
-          "Kamu login sebagai <b>admin</b>. Sekarang bisa tambah, edit, dan hapus produk.";
+        noticeBox.classList.add("success");
+        noticeBox.innerHTML = "Kamu login sebagai <b>admin</b>. Tambah, edit, atau hapus produk di bawah.";
       } else {
-        adminStatus.textContent = "Akun ini bukan admin: " + user.email;
+        adminStatus.textContent = "Akun ini tidak memiliki akses admin.";
         productForm.classList.add("hidden");
-        noticeBox.innerHTML =
-          "Akun ini bukan admin. Logout lalu login memakai email: <b>" + ADMIN_EMAIL + "</b>";
+        noticeBox.innerHTML = "Akun ini bukan admin. Silakan logout lalu login dengan akun admin yang benar.";
       }
 
       renderProducts();
@@ -716,248 +1173,264 @@
       return currentUser && currentUser.email === ADMIN_EMAIL;
     }
 
-    const productQuery = query(
-      collection(db, "products"),
-      orderBy("createdAt", "desc")
-    );
+    /* ─── FIRESTORE REALTIME ─────────────── */
+    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
 
-    onSnapshot(productQuery, (snapshot) => {
-      products = snapshot.docs.map((item) => ({
-        id: item.id,
-        ...item.data()
-      }));
-
-      renderCategoryFilter();
+    onSnapshot(q, (snap) => {
+      products = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      loaded   = true;
+      buildCategoryFilter();
       renderProducts();
-    }, (error) => {
-      console.error(error);
+    }, (err) => {
+      console.error("[Firestore]", err.code);
       productGrid.innerHTML = `
-        <div class="empty">
-          Gagal memuat produk. Pastikan Firebase config dan Firestore Rules sudah benar.
-          <br />
-          Error: ${escapeHtml(error.message)}
+        <div class="empty-state">
+          <div class="empty-icon">⚠️</div>
+          <h3>Gagal memuat produk</h3>
+          <p>Pastikan Firebase Firestore sudah dikonfigurasi dan Security Rules sudah benar.</p>
         </div>
       `;
     });
 
-    function renderCategoryFilter() {
-      const oldValue = categoryFilter.value;
-      const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+    /* ─── RENDER ─────────────────────────── */
+    function showSkeletons() {
+      productGrid.innerHTML = Array.from({ length: 8 }).map(() => `
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+      `).join("");
+    }
 
-      categoryFilter.innerHTML = `<option value="">Semua kategori</option>`;
-
-      categories.forEach((cat) => {
-        const option = document.createElement("option");
-        option.value = cat;
-        option.textContent = cat;
-        categoryFilter.appendChild(option);
+    function buildCategoryFilter() {
+      const prev = catFilter.value;
+      const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
+      catFilter.innerHTML = `<option value="">Semua kategori</option>`;
+      cats.forEach(c => {
+        const o = document.createElement("option");
+        o.value = c; o.textContent = c;
+        catFilter.appendChild(o);
       });
-
-      categoryFilter.value = oldValue;
+      catFilter.value = prev;
     }
 
     function renderProducts() {
-      const keyword = searchInput.value.toLowerCase().trim();
-      const selectedCategory = categoryFilter.value;
+      if (!loaded) { showSkeletons(); return; }
 
-      const filtered = products.filter((p) => {
-        const text = `
-          ${p.title || ""}
-          ${p.description || ""}
-          ${p.category || ""}
-          ${p.badge || ""}
-        `.toLowerCase();
+      const kw  = searchInput.value.toLowerCase().trim();
+      const cat = catFilter.value;
 
-        const matchKeyword = text.includes(keyword);
-        const matchCategory = !selectedCategory || p.category === selectedCategory;
-
-        return matchKeyword && matchCategory;
+      const list = products.filter(p => {
+        const txt = `${p.title || ""} ${p.description || ""} ${p.category || ""} ${p.badge || ""}`.toLowerCase();
+        return txt.includes(kw) && (!cat || p.category === cat);
       });
 
-      if (filtered.length === 0) {
+      productCount.textContent = list.length ? `${list.length} produk` : "";
+
+      if (!list.length) {
         productGrid.innerHTML = `
-          <div class="empty">
-            Belum ada produk.
-            ${isAdminPage ? "<br />Login sebagai admin lalu tambah produk pertama kamu." : ""}
-          </div>
-        `;
+          <div class="empty-state">
+            <div class="empty-icon">🛍️</div>
+            <h3>${kw || cat ? "Produk tidak ditemukan" : "Belum ada produk"}</h3>
+            <p>${kw || cat ? "Coba kata kunci atau kategori lain." : (isAdminPage ? "Login sebagai admin lalu tambah produk pertama." : "Kunjungi kembali nanti untuk melihat produk terbaru.")}</p>
+          </div>`;
         return;
       }
 
-      productGrid.innerHTML = filtered.map((p) => {
-        const safeTitle = escapeHtml(p.title || "Produk Shopee");
-        const safePrice = escapeHtml(p.price || "Cek harga di Shopee");
-        const safeDesc = escapeHtml(p.description || "Produk pilihan dari Shopee Affiliate.");
-        const safeBadge = escapeHtml(p.badge || p.category || "Rekomendasi");
-        const safeImage = escapeHtml(p.imageUrl || "");
-        const safeLink = escapeHtml(p.link || "#");
+      /* Use DocumentFragment to avoid repeated reflows */
+      const frag = document.createDocumentFragment();
 
-        return `
-          <article class="product">
-            <div class="product-img">
-              ${
-                p.imageUrl
-                  ? `<img src="${safeImage}" alt="${safeTitle}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;no-img&quot;>🛍️</div>'" />`
-                  : `<div class="no-img">🛍️</div>`
-              }
-            </div>
+      list.forEach(p => {
+        const article = document.createElement("article");
+        article.className = "product";
+        article.setAttribute("role", "listitem");
+        article.dataset.id = p.id;
 
-            <div class="product-body">
-              <span class="badge">🔥 ${safeBadge}</span>
-              <h3>${safeTitle}</h3>
-              <div class="price">${safePrice}</div>
-              <div class="desc">${safeDesc}</div>
+        /* Safely build inner HTML — no user data goes raw into innerHTML */
+        const safeTitle = sanitize(p.title   || "Produk Shopee");
+        const safePrice = sanitize(p.price   || "Cek harga di Shopee");
+        const safeDesc  = sanitize(p.description || "Produk pilihan dari Shopee Affiliate.");
+        const safeBadge = sanitize(p.badge || p.category || "Rekomendasi");
 
-              <div class="product-actions">
-                <a class="buy" href="${safeLink}" target="_blank" rel="noopener noreferrer">Beli</a>
-                <button class="copy" type="button" onclick="copyLink('${encodeURIComponent(p.link || "")}')">Salin</button>
-              </div>
-
-              ${
-                isAdmin()
-                  ? `
-                    <div class="product-actions">
-                      <button class="copy" type="button" onclick="editProduct('${p.id}')">Edit</button>
-                      <button class="btn-danger" type="button" onclick="deleteProduct('${p.id}')">Hapus</button>
-                    </div>
-                  `
-                  : ""
-              }
-            </div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    productForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      if (!isAdmin()) {
-        alert("Kamu bukan admin.");
-        return;
-      }
-
-      const data = {
-        title: titleInput.value.trim(),
-        price: priceInput.value.trim(),
-        category: categoryInput.value.trim(),
-        badge: badgeInput.value.trim(),
-        imageUrl: imageUrlInput.value.trim(),
-        link: linkInput.value.trim(),
-        description: descriptionInput.value.trim(),
-        updatedAt: serverTimestamp()
-      };
-
-      if (!data.title) {
-        alert("Nama produk wajib diisi.");
-        return;
-      }
-
-      if (!data.link) {
-        alert("Link affiliate wajib diisi.");
-        return;
-      }
-
-      if (!data.link.includes("shopee")) {
-        const lanjut = confirm("Link ini tidak terlihat seperti link Shopee. Tetap simpan?");
-        if (!lanjut) return;
-      }
-
-      try {
-        saveBtn.textContent = editingId ? "Mengupdate..." : "Menyimpan...";
-        saveBtn.disabled = true;
-
-        if (editingId) {
-          await updateDoc(doc(db, "products", editingId), data);
-          alert("Produk berhasil diupdate.");
+        /* Image: build via DOM, not innerHTML, to avoid onerror injection */
+        let thumbHTML;
+        if (p.imageUrl && isSafeUrl(p.imageUrl)) {
+          thumbHTML = `<img src="${sanitize(p.imageUrl)}" alt="${safeTitle}" loading="lazy" class="prod-img-el" />`;
         } else {
-          await addDoc(collection(db, "products"), {
-            ...data,
-            createdAt: serverTimestamp()
-          });
-          alert("Produk berhasil ditambahkan.");
+          thumbHTML = `<div class="no-img">🛍️</div>`;
         }
 
-        resetForm();
-      } catch (error) {
-        alert("Gagal simpan: " + error.message);
-      } finally {
-        saveBtn.textContent = "Simpan Produk";
-        saveBtn.disabled = false;
+        /* Link: validate before using */
+        const safeHref = (p.link && isSafeUrl(p.link)) ? sanitize(p.link) : "#";
+
+        article.innerHTML = `
+          <div class="product-thumb">${thumbHTML}</div>
+          <div class="product-body">
+            <span class="badge-pill">🔥 ${safeBadge}</span>
+            <h3>${safeTitle}</h3>
+            <div class="product-price">${safePrice}</div>
+            <div class="product-desc">${safeDesc}</div>
+            <div class="product-actions">
+              <a class="card-btn card-btn-buy" href="${safeHref}" target="_blank" rel="noopener noreferrer">Beli di Shopee</a>
+              <button class="card-btn card-btn-copy" type="button" data-action="copy" aria-label="Salin link">Salin</button>
+            </div>
+            ${isAdmin() ? `
+            <div class="admin-row">
+              <button class="card-btn card-btn-edit"   type="button" data-action="edit"   aria-label="Edit produk">Edit</button>
+              <button class="card-btn card-btn-delete" type="button" data-action="delete" aria-label="Hapus produk">Hapus</button>
+            </div>` : ""}
+          </div>`;
+
+        /* Fix broken images safely */
+        const img = article.querySelector(".prod-img-el");
+        if (img) {
+          img.addEventListener("error", () => {
+            const thumb = img.closest(".product-thumb");
+            if (thumb) {
+              img.remove();
+              const fallback = document.createElement("div");
+              fallback.className = "no-img";
+              fallback.textContent = "🛍️";
+              thumb.appendChild(fallback);
+            }
+          }, { once: true });
+        }
+
+        frag.appendChild(article);
+      });
+
+      productGrid.innerHTML = "";
+      productGrid.appendChild(frag);
+    }
+
+    /* ─── EVENT DELEGATION (safe, no inline handlers) ─ */
+    productGrid.addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+
+      const action  = btn.dataset.action;
+      const article = btn.closest("[data-id]");
+      const id      = article?.dataset.id;
+      if (!id) return;
+
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+
+      if (action === "copy") {
+        const link = p.link || "";
+        try {
+          await navigator.clipboard.writeText(link);
+          toast("Link berhasil disalin!", "success");
+        } catch {
+          toast(`Salin link ini secara manual: ${link}`, "warning", 8000);
+        }
+      }
+
+      if (action === "edit") {
+        if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
+        startEdit(p);
+      }
+
+      if (action === "delete") {
+        if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
+        const ok = await confirm("Hapus Produk", `Yakin ingin menghapus "${p.title || "produk ini"}"? Tindakan ini tidak dapat dibatalkan.`);
+        if (!ok) return;
+        try {
+          await deleteDoc(doc(db, "products", id));
+          toast("Produk berhasil dihapus.", "success");
+        } catch (err) {
+          console.error(err.code);
+          toast("Gagal menghapus produk.", "error");
+        }
       }
     });
 
-    resetBtn.addEventListener("click", resetForm);
+    /* ─── FORM SUBMIT ────────────────────── */
+    productForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
+
+      const title = fTitle.value.trim();
+      const link  = fLink.value.trim();
+
+      if (!title) { toast("Nama produk wajib diisi.", "warning"); fTitle.focus(); return; }
+      if (!link)  { toast("Link affiliate wajib diisi.", "warning"); fLink.focus(); return; }
+      if (!isSafeUrl(link)) { toast("Link tidak valid. Harus diawali https://", "warning"); fLink.focus(); return; }
+
+      if (!link.includes("shopee")) {
+        const ok = await confirm("Link Bukan Shopee", "Link ini tidak tampak seperti link Shopee. Tetap simpan?");
+        if (!ok) return;
+      }
+
+      const data = {
+        title:       title,
+        price:       fPrice.value.trim(),
+        category:    fCat.value.trim(),
+        badge:       fBadge.value.trim(),
+        imageUrl:    fImage.value.trim(),
+        link:        link,
+        description: fDesc.value.trim(),
+        updatedAt:   serverTimestamp()
+      };
+
+      /* Extra: truncate fields to prevent abuse */
+      Object.keys(data).forEach(k => {
+        if (typeof data[k] === "string") data[k] = data[k].slice(0, 500);
+      });
+
+      saveBtn.disabled    = true;
+      saveBtn.textContent = editingId ? "Mengupdate…" : "Menyimpan…";
+
+      try {
+        if (editingId) {
+          await updateDoc(doc(db, "products", editingId), data);
+          toast("Produk berhasil diupdate!", "success");
+        } else {
+          await addDoc(collection(db, "products"), { ...data, createdAt: serverTimestamp() });
+          toast("Produk baru berhasil ditambahkan!", "success");
+        }
+        resetForm();
+      } catch (err) {
+        console.error(err.code);
+        toast("Gagal menyimpan produk. Coba lagi.", "error");
+      } finally {
+        saveBtn.disabled    = false;
+        saveBtn.textContent = "Simpan Produk";
+      }
+    });
+
+    $id("resetBtn").addEventListener("click", resetForm);
 
     function resetForm() {
       editingId = null;
       productForm.reset();
       saveBtn.textContent = "Simpan Produk";
-      saveBtn.disabled = false;
     }
 
-    window.editProduct = function(id) {
-      if (!isAdmin()) {
-        alert("Kamu bukan admin.");
-        return;
-      }
-
-      const p = products.find(item => item.id === id);
-      if (!p) return;
-
-      editingId = id;
-
-      titleInput.value = p.title || "";
-      priceInput.value = p.price || "";
-      categoryInput.value = p.category || "";
-      badgeInput.value = p.badge || "";
-      imageUrlInput.value = p.imageUrl || "";
-      linkInput.value = p.link || "";
-      descriptionInput.value = p.description || "";
-
+    function startEdit(p) {
+      editingId       = p.id;
+      fTitle.value    = p.title       || "";
+      fPrice.value    = p.price       || "";
+      fCat.value      = p.category    || "";
+      fBadge.value    = p.badge       || "";
+      fImage.value    = p.imageUrl    || "";
+      fLink.value     = p.link        || "";
+      fDesc.value     = p.description || "";
       saveBtn.textContent = "Update Produk";
       adminPanel.scrollIntoView({ behavior: "smooth" });
-    };
-
-    window.deleteProduct = async function(id) {
-      if (!isAdmin()) {
-        alert("Kamu bukan admin.");
-        return;
-      }
-
-      const yakin = confirm("Yakin mau hapus produk ini?");
-      if (!yakin) return;
-
-      try {
-        await deleteDoc(doc(db, "products", id));
-        alert("Produk berhasil dihapus.");
-      } catch (error) {
-        alert("Gagal hapus: " + error.message);
-      }
-    };
-
-    window.copyLink = async function(encodedLink) {
-      const link = decodeURIComponent(encodedLink);
-
-      try {
-        await navigator.clipboard.writeText(link);
-        alert("Link berhasil disalin.");
-      } catch {
-        prompt("Salin link ini:", link);
-      }
-    };
-
-    searchInput.addEventListener("input", renderProducts);
-    categoryFilter.addEventListener("change", renderProducts);
-
-    function escapeHtml(value) {
-      return String(value || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
     }
+
+    /* ─── SEARCH / FILTER ────────────────── */
+    searchInput.addEventListener("input",  renderProducts);
+    catFilter.addEventListener("change",   renderProducts);
+
+    /* Initial skeleton while Firebase connects */
+    showSkeletons();
   </script>
+
 </body>
 </html>
