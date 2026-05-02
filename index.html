@@ -3,13 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EL Affiliate Store</title>
-  <meta name="description" content="Kumpulan produk Shopee Affiliate pilihan, murah, viral, dan berguna." />
-  <meta name="theme-color" content="#e8390e" />
 
-  <!-- SECURITY: CSP header via meta -->
+  <title>EL Affiliate Store - Produk Viral Shopee</title>
+
+  <meta name="description" content="Kumpulan produk Shopee Affiliate pilihan, murah, viral, dan berguna. Klik untuk lihat produk rekomendasi terbaru." />
+  <meta name="theme-color" content="#e8390e" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://el-affiliate-store.netlify.app/" />
+
+  <!-- Open Graph: Facebook, WhatsApp, Telegram -->
+  <meta property="og:title" content="EL Affiliate Store - Produk Viral Shopee" />
+  <meta property="og:description" content="Kumpulan produk Shopee murah, viral, dan berguna. Klik untuk lihat rekomendasi produk terbaru!" />
+  <meta property="og:image" content="https://el-affiliate-store.netlify.app/preview.jpg" />
+  <meta property="og:image:alt" content="EL Affiliate Store - Produk Viral Shopee" />
+  <meta property="og:url" content="https://el-affiliate-store.netlify.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EL Affiliate Store" />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="EL Affiliate Store - Produk Viral Shopee" />
+  <meta name="twitter:description" content="Produk viral Shopee terbaik setiap hari. Cek sekarang!" />
+  <meta name="twitter:image" content="https://el-affiliate-store.netlify.app/preview.jpg" />
+
+  <!-- Icon -->
+  <link rel="icon" href="/icon.png" />
+  <link rel="apple-touch-icon" href="/icon.png" />
+
+  <!-- SECURITY: CSP via meta -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self' https: data: 'unsafe-inline'; script-src 'self' https://www.gstatic.com 'unsafe-inline'; connect-src https://*.googleapis.com https://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebaseio.com;" />
+    content="
+      default-src 'self' https: data:;
+      script-src 'self' https://www.gstatic.com 'unsafe-inline';
+      style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+      font-src 'self' https://fonts.gstatic.com data:;
+      img-src 'self' https: data:;
+      connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebaseio.com;
+      frame-src 'self' https:;
+      base-uri 'self';
+    " />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +86,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── TOAST ─────────────────────────────── */
     #toastContainer {
       position: fixed;
       bottom: 24px;
@@ -98,7 +130,6 @@
       to   { transform: translateX(120%); opacity: 0; }
     }
 
-    /* ── MODAL ─────────────────────────────── */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -143,13 +174,11 @@
 
     .modal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    /* ── LAYOUT ────────────────────────────── */
     .container {
       width: min(1180px, 92%);
       margin: auto;
     }
 
-    /* ── HEADER ────────────────────────────── */
     header {
       position: sticky;
       top: 0;
@@ -212,7 +241,6 @@
       color: var(--dark);
     }
 
-    /* ── BUTTONS ───────────────────────────── */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -266,7 +294,6 @@
       font-size: 13px;
     }
 
-    /* ── HERO ──────────────────────────────── */
     .hero {
       padding: 56px 0 44px;
       display: grid;
@@ -308,7 +335,6 @@
 
     .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    /* ── HERO CARD ─────────────────────────── */
     .hero-card {
       background: white;
       border-radius: var(--radius-xl);
@@ -378,7 +404,6 @@
       line-height: 1.4;
     }
 
-    /* ── ADMIN PANEL ───────────────────────── */
     .admin-panel {
       display: none;
       background: white;
@@ -430,7 +455,6 @@
       color: #14532d;
     }
 
-    /* ── FORM ──────────────────────────────── */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -484,7 +508,6 @@
       margin-top: 16px;
     }
 
-    /* ── SECTION ───────────────────────────── */
     .section-head {
       display: flex;
       align-items: flex-end;
@@ -508,7 +531,6 @@
       white-space: nowrap;
     }
 
-    /* ── TOOLBAR ───────────────────────────── */
     .toolbar {
       display: grid;
       grid-template-columns: 1fr 200px;
@@ -533,7 +555,6 @@
       padding-left: 44px;
     }
 
-    /* ── PRODUCT GRID ──────────────────────── */
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -541,7 +562,6 @@
       padding-bottom: 60px;
     }
 
-    /* ── SKELETON ──────────────────────────── */
     .skeleton-card {
       background: white;
       border-radius: var(--radius-lg);
@@ -575,7 +595,6 @@
       100% { background-position: -200% 0; }
     }
 
-    /* ── PRODUCT CARD ──────────────────────── */
     .product {
       background: white;
       border-radius: var(--radius-lg);
@@ -705,7 +724,6 @@
       margin-top: 8px;
     }
 
-    /* ── EMPTY / ERROR ─────────────────────── */
     .empty-state {
       grid-column: 1 / -1;
       background: white;
@@ -729,7 +747,6 @@
       margin-bottom: 8px;
     }
 
-    /* ── FOOTER ────────────────────────────── */
     footer {
       text-align: center;
       color: var(--muted);
@@ -739,17 +756,8 @@
       border-top: 1px solid var(--border);
     }
 
-    /* ── DIVIDER ───────────────────────────── */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0 28px;
-    }
-
-    /* ── UTILITIES ─────────────────────────── */
     .hidden { display: none !important; }
 
-    /* ── RESPONSIVE ────────────────────────── */
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; padding-top: 38px; }
       .grid { grid-template-columns: repeat(2, 1fr); }
@@ -770,11 +778,8 @@
 </head>
 
 <body>
-
-  <!-- ── TOAST CONTAINER ──────────────────── -->
   <div id="toastContainer" aria-live="polite"></div>
 
-  <!-- ── CONFIRM MODAL ─────────────────────── -->
   <div id="confirmModal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal">
       <h3 id="confirmTitle">Konfirmasi</h3>
@@ -786,7 +791,6 @@
     </div>
   </div>
 
-  <!-- ── PASSWORD MODAL ─────────────────────── -->
   <div id="passwordModal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal">
       <h3>Login Admin</h3>
@@ -802,7 +806,6 @@
     </div>
   </div>
 
-  <!-- ── HEADER ────────────────────────────── -->
   <header>
     <div class="container nav">
       <a class="logo" href="./">
@@ -817,8 +820,6 @@
   </header>
 
   <main class="container">
-
-    <!-- ── HERO ──────────────────────────────── -->
     <section class="hero">
       <div>
         <div class="hero-eyebrow">🔥 Shopee Affiliate Picks</div>
@@ -855,7 +856,6 @@
       </div>
     </section>
 
-    <!-- ── ADMIN PANEL ────────────────────── -->
     <section id="adminPanel" class="admin-panel" aria-label="Panel Admin">
       <div class="admin-header">
         <div>
@@ -898,8 +898,8 @@
 
             <label class="field full">
               <span>URL Gambar</span>
-              <small>Pakai link gambar dari Shopee atau CDN lain</small>
-              <input id="f-image" type="url" placeholder="https://down-id.img.susercontent.com/..." maxlength="500" autocomplete="off" />
+              <small>Pakai link gambar dari Shopee, GitHub, Netlify, atau CDN lain.</small>
+              <input id="f-image" type="url" placeholder="https://el-affiliate-store.netlify.app/preview.jpg" maxlength="500" autocomplete="off" />
             </label>
 
             <label class="field full">
@@ -915,13 +915,12 @@
 
           <div class="form-actions">
             <button id="saveBtn"  class="btn btn-primary" type="submit">Simpan Produk</button>
-            <button id="resetBtn" class="btn btn-ghost"   type="button">Reset Form</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button">Reset Form</button>
           </div>
         </form>
       </div>
     </section>
 
-    <!-- ── PRODUCTS ───────────────────────── -->
     <section id="produk">
       <div class="section-head">
         <div>
@@ -945,7 +944,6 @@
 
       <div id="productGrid" class="grid" role="list"></div>
     </section>
-
   </main>
 
   <footer>
@@ -956,7 +954,6 @@
     </div>
   </footer>
 
-  <!-- ── FIREBASE + APP SCRIPT ──────────── -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
@@ -967,7 +964,6 @@
       doc, onSnapshot, query, orderBy, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    /* ─── CONFIG ─────────────────────────── */
     const firebaseConfig = {
       apiKey:            "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
       authDomain:        "el-affiliate-store.firebaseapp.com",
@@ -977,16 +973,12 @@
       appId:             "1:1023817787454:web:7516b1a8e4d2d989a6896f"
     };
 
-    /* SECURITY NOTE: Admin authorization is enforced by Firebase Auth +
-       Firestore Security Rules on the server side. Client-side checks are
-       convenience only — rules must be set in Firebase Console. */
     const ADMIN_EMAIL = "aliansikonoha25@gmail.com";
 
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
-    /* ─── ELEMENTS ───────────────────────── */
     const $id = (id) => document.getElementById(id);
 
     const adminPanel   = $id("adminPanel");
@@ -1009,7 +1001,6 @@
     const fLink   = $id("f-link");
     const fDesc   = $id("f-desc");
 
-    /* ─── STATE ──────────────────────────── */
     let products    = [];
     let currentUser = null;
     let editingId   = null;
@@ -1020,7 +1011,6 @@
     const isAdminPage = new URLSearchParams(location.search).has("admin");
     if (isAdminPage) adminPanel.style.display = "block";
 
-    /* ─── TOAST ──────────────────────────── */
     function toast(message, type = "info", duration = 3500) {
       const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
       const el = document.createElement("div");
@@ -1034,8 +1024,7 @@
       }, duration);
     }
 
-    /* ─── CONFIRM MODAL ──────────────────── */
-    function confirm(title, message) {
+    function confirmAction(title, message) {
       return new Promise((resolve) => {
         $id("confirmTitle").textContent   = title;
         $id("confirmMessage").textContent = message;
@@ -1060,7 +1049,6 @@
       });
     }
 
-    /* ─── PASSWORD MODAL ─────────────────── */
     function promptPassword() {
       return new Promise((resolve) => {
         const modal = $id("passwordModal");
@@ -1091,7 +1079,6 @@
       });
     }
 
-    /* ─── SANITIZE (basic XSS protection) ── */
     function sanitize(value) {
       return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -1101,17 +1088,15 @@
         .replace(/'/g, "&#x27;");
     }
 
-    /* ─── VALIDATE URL ───────────────────── */
     function isSafeUrl(url) {
       try {
         const u = new URL(url);
-        return u.protocol === "https:" || u.protocol === "http:";
+        return u.protocol === "https:";
       } catch {
         return false;
       }
     }
 
-    /* ─── AUTH ───────────────────────────── */
     loginBtn.addEventListener("click", async () => {
       const password = await promptPassword();
       if (!password) return;
@@ -1173,7 +1158,6 @@
       return currentUser && currentUser.email === ADMIN_EMAIL;
     }
 
-    /* ─── FIRESTORE REALTIME ─────────────── */
     const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
 
     onSnapshot(q, (snap) => {
@@ -1192,7 +1176,6 @@
       `;
     });
 
-    /* ─── RENDER ─────────────────────────── */
     function showSkeletons() {
       productGrid.innerHTML = Array.from({ length: 8 }).map(() => `
         <div class="skeleton-card">
@@ -1212,7 +1195,8 @@
       catFilter.innerHTML = `<option value="">Semua kategori</option>`;
       cats.forEach(c => {
         const o = document.createElement("option");
-        o.value = c; o.textContent = c;
+        o.value = c;
+        o.textContent = c;
         catFilter.appendChild(o);
       });
       catFilter.value = prev;
@@ -1241,7 +1225,6 @@
         return;
       }
 
-      /* Use DocumentFragment to avoid repeated reflows */
       const frag = document.createDocumentFragment();
 
       list.forEach(p => {
@@ -1250,13 +1233,11 @@
         article.setAttribute("role", "listitem");
         article.dataset.id = p.id;
 
-        /* Safely build inner HTML — no user data goes raw into innerHTML */
         const safeTitle = sanitize(p.title   || "Produk Shopee");
         const safePrice = sanitize(p.price   || "Cek harga di Shopee");
         const safeDesc  = sanitize(p.description || "Produk pilihan dari Shopee Affiliate.");
         const safeBadge = sanitize(p.badge || p.category || "Rekomendasi");
 
-        /* Image: build via DOM, not innerHTML, to avoid onerror injection */
         let thumbHTML;
         if (p.imageUrl && isSafeUrl(p.imageUrl)) {
           thumbHTML = `<img src="${sanitize(p.imageUrl)}" alt="${safeTitle}" loading="lazy" class="prod-img-el" />`;
@@ -1264,7 +1245,6 @@
           thumbHTML = `<div class="no-img">🛍️</div>`;
         }
 
-        /* Link: validate before using */
         const safeHref = (p.link && isSafeUrl(p.link)) ? sanitize(p.link) : "#";
 
         article.innerHTML = `
@@ -1280,12 +1260,11 @@
             </div>
             ${isAdmin() ? `
             <div class="admin-row">
-              <button class="card-btn card-btn-edit"   type="button" data-action="edit"   aria-label="Edit produk">Edit</button>
+              <button class="card-btn card-btn-edit" type="button" data-action="edit" aria-label="Edit produk">Edit</button>
               <button class="card-btn card-btn-delete" type="button" data-action="delete" aria-label="Hapus produk">Hapus</button>
             </div>` : ""}
           </div>`;
 
-        /* Fix broken images safely */
         const img = article.querySelector(".prod-img-el");
         if (img) {
           img.addEventListener("error", () => {
@@ -1307,7 +1286,6 @@
       productGrid.appendChild(frag);
     }
 
-    /* ─── EVENT DELEGATION (safe, no inline handlers) ─ */
     productGrid.addEventListener("click", async (e) => {
       const btn = e.target.closest("[data-action]");
       if (!btn) return;
@@ -1337,7 +1315,7 @@
 
       if (action === "delete") {
         if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
-        const ok = await confirm("Hapus Produk", `Yakin ingin menghapus "${p.title || "produk ini"}"? Tindakan ini tidak dapat dibatalkan.`);
+        const ok = await confirmAction("Hapus Produk", `Yakin ingin menghapus "${p.title || "produk ini"}"? Tindakan ini tidak dapat dibatalkan.`);
         if (!ok) return;
         try {
           await deleteDoc(doc(db, "products", id));
@@ -1349,7 +1327,6 @@
       }
     });
 
-    /* ─── FORM SUBMIT ────────────────────── */
     productForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
@@ -1362,8 +1339,15 @@
       if (!isSafeUrl(link)) { toast("Link tidak valid. Harus diawali https://", "warning"); fLink.focus(); return; }
 
       if (!link.includes("shopee")) {
-        const ok = await confirm("Link Bukan Shopee", "Link ini tidak tampak seperti link Shopee. Tetap simpan?");
+        const ok = await confirmAction("Link Bukan Shopee", "Link ini tidak tampak seperti link Shopee. Tetap simpan?");
         if (!ok) return;
+      }
+
+      const imageUrl = fImage.value.trim();
+      if (imageUrl && !isSafeUrl(imageUrl)) {
+        toast("URL gambar harus diawali https://", "warning");
+        fImage.focus();
+        return;
       }
 
       const data = {
@@ -1371,13 +1355,12 @@
         price:       fPrice.value.trim(),
         category:    fCat.value.trim(),
         badge:       fBadge.value.trim(),
-        imageUrl:    fImage.value.trim(),
+        imageUrl:    imageUrl,
         link:        link,
         description: fDesc.value.trim(),
         updatedAt:   serverTimestamp()
       };
 
-      /* Extra: truncate fields to prevent abuse */
       Object.keys(data).forEach(k => {
         if (typeof data[k] === "string") data[k] = data[k].slice(0, 500);
       });
@@ -1424,13 +1407,10 @@
       adminPanel.scrollIntoView({ behavior: "smooth" });
     }
 
-    /* ─── SEARCH / FILTER ────────────────── */
     searchInput.addEventListener("input",  renderProducts);
     catFilter.addEventListener("change",   renderProducts);
 
-    /* Initial skeleton while Firebase connects */
     showSkeletons();
   </script>
-
 </body>
 </html>
