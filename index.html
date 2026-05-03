@@ -11,7 +11,7 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://el-affiliate-store.netlify.app/" />
 
-  <!-- Open Graph: Facebook, WhatsApp, Telegram -->
+  <!-- Open Graph -->
   <meta property="og:title" content="EL Affiliate Store - Produk Viral Shopee" />
   <meta property="og:description" content="Kumpulan produk Shopee murah, viral, dan berguna. Klik untuk lihat rekomendasi produk terbaru!" />
   <meta property="og:image" content="https://el-affiliate-store.netlify.app/preview.jpg" />
@@ -52,18 +52,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --orange:   #e8390e;
-      --orange2:  #f97316;
-      --amber:    #fbbf24;
-      --dark:     #0f0f0f;
-      --dark2:    #1a1a1a;
-      --surface:  #ffffff;
-      --muted:    #71717a;
-      --border:   #e4e4e7;
-      --light-bg: #fafafa;
-      --danger:   #dc2626;
-      --danger-bg:#fef2f2;
-      --success:  #16a34a;
+      --orange:    #e8390e;
+      --orange2:   #f97316;
+      --amber:     #fbbf24;
+      --dark:      #0f0f0f;
+      --dark2:     #1a1a1a;
+      --surface:   #ffffff;
+      --muted:     #71717a;
+      --border:    #e4e4e7;
+      --light-bg:  #fafafa;
+      --danger:    #dc2626;
+      --danger-bg: #fef2f2;
+      --success:   #16a34a;
       --success-bg:#f0fdf4;
       --radius-sm: 12px;
       --radius-md: 20px;
@@ -86,6 +86,7 @@
 
     a { color: inherit; text-decoration: none; }
 
+    /* ─── TOAST ─── */
     #toastContainer {
       position: fixed;
       bottom: 24px;
@@ -117,19 +118,12 @@
     .toast.success { background: #14532d; }
     .toast.error   { background: #7f1d1d; }
     .toast.warning { background: #78350f; }
+    .toast-icon    { font-size: 18px; flex-shrink: 0; }
 
-    .toast-icon { font-size: 18px; flex-shrink: 0; }
+    @keyframes toastIn  { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0);    opacity: 1; } }
+    @keyframes toastOut { from { transform: translateX(0);    opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
 
-    @keyframes toastIn {
-      from { transform: translateX(120%); opacity: 0; }
-      to   { transform: translateX(0);   opacity: 1; }
-    }
-
-    @keyframes toastOut {
-      from { transform: translateX(0);   opacity: 1; }
-      to   { transform: translateX(120%); opacity: 0; }
-    }
-
+    /* ─── MODAL ─── */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -141,7 +135,6 @@
       justify-content: center;
       padding: 20px;
     }
-
     .modal-backdrop.active { display: flex; }
 
     .modal {
@@ -152,37 +145,20 @@
       width: 100%;
       box-shadow: var(--shadow-lg);
       animation: modalIn .25s cubic-bezier(.34,1.56,.64,1);
+      position: relative; /* prevent backdrop click bleed */
     }
 
-    @keyframes modalIn {
-      from { transform: scale(.92); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
+    @keyframes modalIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    .modal h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .modal p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 22px;
-    }
-
+    .modal h3 { font-family: 'Syne', sans-serif; font-size: 22px; margin-bottom: 8px; }
+    .modal p  { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
     .modal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    .container {
-      width: min(1180px, 92%);
-      margin: auto;
-    }
+    /* ─── LAYOUT ─── */
+    .container { width: min(1180px, 92%); margin: auto; }
 
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
       background: rgba(250,250,250,.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -198,102 +174,45 @@
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Syne', sans-serif;
-      font-size: 19px;
-      font-weight: 900;
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900;
     }
 
     .logo-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
+      width: 42px; height: 42px; border-radius: 14px;
       background: linear-gradient(135deg, var(--orange), var(--orange2));
-      display: grid;
-      place-items: center;
-      color: white;
-      font-family: 'Syne', sans-serif;
-      font-weight: 900;
-      font-size: 15px;
-      box-shadow: 0 8px 20px rgba(232,57,14,.3);
-      flex-shrink: 0;
+      display: grid; place-items: center;
+      color: white; font-family: 'Syne', sans-serif; font-weight: 900; font-size: 15px;
+      box-shadow: 0 8px 20px rgba(232,57,14,.3); flex-shrink: 0;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .nav-links { display: flex; align-items: center; gap: 6px; }
 
     .nav-links a {
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--muted);
-      transition: .15s;
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 14px; font-weight: 600; color: var(--muted); transition: .15s;
     }
+    .nav-links a:hover { background: white; color: var(--dark); }
 
-    .nav-links a:hover {
-      background: white;
-      color: var(--dark);
-    }
-
+    /* ─── BUTTONS ─── */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      border: 0;
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 12px 22px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      transition: .2s ease;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 7px; border: 0; cursor: pointer; border-radius: 999px;
+      padding: 12px 22px; font-family: 'Outfit', sans-serif;
+      font-size: 14px; font-weight: 700; transition: .2s ease; white-space: nowrap;
     }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
+    .btn:hover   { transform: translateY(-1px); }
+    .btn:active  { transform: translateY(0); }
     .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--orange), var(--orange2));
-      color: white;
-      box-shadow: 0 8px 24px rgba(232,57,14,.28);
-    }
+    .btn-primary { background: linear-gradient(135deg, var(--orange), var(--orange2)); color: white; box-shadow: 0 8px 24px rgba(232,57,14,.28); }
+    .btn-dark    { background: var(--dark); color: white; }
+    .btn-ghost   { background: white; color: var(--dark); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .btn-soft    { background: #fff0ec; color: var(--orange); }
+    .btn-danger  { background: var(--danger-bg); color: var(--danger); }
+    .btn-sm      { padding: 9px 16px; font-size: 13px; }
 
-    .btn-dark {
-      background: var(--dark);
-      color: white;
-    }
-
-    .btn-ghost {
-      background: white;
-      color: var(--dark);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .btn-soft {
-      background: #fff0ec;
-      color: var(--orange);
-    }
-
-    .btn-danger {
-      background: var(--danger-bg);
-      color: var(--danger);
-    }
-
-    .btn-sm {
-      padding: 9px 16px;
-      font-size: 13px;
-    }
-
+    /* ─── HERO ─── */
     .hero {
       padding: 56px 0 44px;
       display: grid;
@@ -303,258 +222,148 @@
     }
 
     .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: #fff0ec;
-      color: var(--orange);
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 14px; border-radius: 999px;
+      background: #fff0ec; color: var(--orange);
+      font-size: 13px; font-weight: 700; margin-bottom: 20px;
     }
 
     .hero h1 {
       font-family: 'Syne', sans-serif;
       font-size: clamp(40px, 5.5vw, 68px);
-      line-height: 1.0;
-      letter-spacing: -2px;
-      margin-bottom: 18px;
+      line-height: 1.0; letter-spacing: -2px; margin-bottom: 18px;
     }
-
     .hero h1 .accent { color: var(--orange); }
 
     .hero p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.75;
-      max-width: 480px;
-      margin-bottom: 28px;
+      color: var(--muted); font-size: 17px; line-height: 1.75;
+      max-width: 480px; margin-bottom: 28px;
     }
 
     .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .hero-card {
-      background: white;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
+      background: white; border-radius: var(--radius-xl);
+      border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden;
     }
 
     .hero-card-top {
       background: linear-gradient(135deg, var(--dark2), #2d2d2d);
-      padding: 26px;
-      position: relative;
-      overflow: hidden;
+      padding: 26px; position: relative; overflow: hidden;
     }
-
     .hero-card-top::before {
-      content: '';
-      position: absolute;
-      top: -30px; right: -30px;
-      width: 160px; height: 160px;
-      border-radius: 50%;
+      content: ''; position: absolute; top: -30px; right: -30px;
+      width: 160px; height: 160px; border-radius: 50%;
       background: radial-gradient(circle, rgba(232,57,14,.35), transparent 70%);
     }
-
     .hero-card-top h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 28px;
-      color: white;
-      line-height: 1.15;
-      margin-bottom: 8px;
-      position: relative;
+      font-family: 'Syne', sans-serif; font-size: 28px;
+      color: white; line-height: 1.15; margin-bottom: 8px; position: relative;
     }
+    .hero-card-top p { color: rgba(255,255,255,.65); font-size: 14px; line-height: 1.6; position: relative; }
 
-    .hero-card-top p {
-      color: rgba(255,255,255,.65);
-      font-size: 14px;
-      line-height: 1.6;
-      position: relative;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      padding: 18px;
-      gap: 12px;
-    }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 18px; gap: 12px; }
 
     .hero-stat {
-      background: var(--light-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px 14px;
-      text-align: center;
+      background: var(--light-bg); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px 14px; text-align: center;
     }
-
     .hero-stat strong {
-      display: block;
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      color: var(--orange);
-      margin-bottom: 4px;
+      display: block; font-family: 'Syne', sans-serif;
+      font-size: 18px; color: var(--orange); margin-bottom: 4px;
     }
+    .hero-stat span { font-size: 12px; color: var(--muted); line-height: 1.4; }
 
-    .hero-stat span {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
+    /* ─── ADMIN PANEL ─── */
     .admin-panel {
-      display: none;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      margin: 32px 0;
+      display: none; background: white;
+      border: 1px solid var(--border); border-radius: var(--radius-xl);
+      overflow: hidden; box-shadow: var(--shadow-md); margin: 32px 0;
     }
 
     .admin-header {
       background: linear-gradient(135deg, var(--dark2), #2d2d2d);
       padding: 24px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; flex-wrap: wrap;
     }
-
-    .admin-header h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      color: white;
-      margin-bottom: 4px;
-    }
-
-    .admin-header p {
-      color: rgba(255,255,255,.6);
-      font-size: 13px;
-    }
+    .admin-header h2 { font-family: 'Syne', sans-serif; font-size: 22px; color: white; margin-bottom: 4px; }
+    .admin-header p  { color: rgba(255,255,255,.6); font-size: 13px; }
 
     .admin-body { padding: 24px 28px; }
 
     .notice {
-      padding: 13px 16px;
-      border-radius: var(--radius-md);
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      color: #9a3412;
-      font-size: 13.5px;
-      line-height: 1.6;
-      margin-bottom: 20px;
+      padding: 13px 16px; border-radius: var(--radius-md);
+      background: #fff7ed; border: 1px solid #fed7aa;
+      color: #9a3412; font-size: 13.5px; line-height: 1.6; margin-bottom: 20px;
     }
+    .notice.success { background: var(--success-bg); border-color: #bbf7d0; color: #14532d; }
 
-    .notice.success {
-      background: var(--success-bg);
-      border-color: #bbf7d0;
-      color: #14532d;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
+    /* ─── FORM ─── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .full { grid-column: 1 / -1; }
 
-    label.field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    label.field { display: flex; flex-direction: column; gap: 6px; }
+    label.field span  { font-size: 13px; font-weight: 600; color: var(--dark); display: flex; justify-content: space-between; align-items: center; }
+    label.field small { font-size: 12px; color: var(--muted); }
 
-    label.field span {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--dark);
-    }
-
-    label.field small {
-      font-size: 12px;
-      color: var(--muted);
-    }
+    /* ── char counter ── */
+    .char-count { font-size: 11px; color: var(--muted); font-weight: 400; }
+    .char-count.warn { color: var(--danger); }
 
     input, select, textarea {
-      width: 100%;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 15px;
-      font-size: 14.5px;
-      font-family: 'Outfit', sans-serif;
-      outline: none;
-      background: var(--light-bg);
-      color: var(--dark);
-      transition: .15s;
+      width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-md);
+      padding: 12px 15px; font-size: 14.5px; font-family: 'Outfit', sans-serif;
+      outline: none; background: var(--light-bg); color: var(--dark); transition: .15s;
     }
-
     input:focus, select:focus, textarea:focus {
-      border-color: var(--orange);
-      background: white;
+      border-color: var(--orange); background: white;
       box-shadow: 0 0 0 4px rgba(232,57,14,.1);
     }
-
     textarea { min-height: 88px; resize: vertical; }
 
-    .form-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
+    /* ── image preview ── */
+    .img-preview-wrap {
+      display: none;
+      margin-top: 8px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      height: 140px;
+      background: var(--light-bg);
+    }
+    .img-preview-wrap.show { display: block; }
+    .img-preview-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
     }
 
+    .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+    /* ─── SECTION HEAD ─── */
     .section-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 40px 0 18px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 16px; margin: 40px 0 18px;
     }
+    .section-head h2 { font-family: 'Syne', sans-serif; font-size: 30px; letter-spacing: -1px; margin-bottom: 4px; }
+    .section-head p  { color: var(--muted); font-size: 15px; }
+    #productCount    { font-size: 13px; color: var(--muted); white-space: nowrap; }
 
-    .section-head h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 30px;
-      letter-spacing: -1px;
-      margin-bottom: 4px;
-    }
-
-    .section-head p { color: var(--muted); font-size: 15px; }
-
-    #productCount {
-      font-size: 13px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
+    /* ─── TOOLBAR ─── */
     .toolbar {
       display: grid;
-      grid-template-columns: 1fr 200px;
+      grid-template-columns: 1fr 180px 180px;
       gap: 12px;
       margin-bottom: 22px;
     }
 
-    .search-wrap {
-      position: relative;
-    }
-
+    .search-wrap { position: relative; }
     .search-wrap svg {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      pointer-events: none;
+      position: absolute; left: 16px; top: 50%;
+      transform: translateY(-50%); color: var(--muted); pointer-events: none;
     }
+    .search-wrap input { padding-left: 44px; }
 
-    .search-wrap input {
-      padding-left: 44px;
-    }
-
+    /* ─── GRID ─── */
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -562,235 +371,139 @@
       padding-bottom: 60px;
     }
 
-    .skeleton-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .skeleton-img {
-      aspect-ratio: 1;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.4s infinite;
-    }
-
+    /* skeleton */
+    .skeleton-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; }
+    .skeleton-img  { aspect-ratio: 1; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
     .skeleton-body { padding: 16px; }
-
-    .skeleton-line {
-      height: 12px;
-      border-radius: 99px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.4s infinite;
-      margin-bottom: 10px;
-    }
-
-    .skeleton-line.short { width: 60%; }
+    .skeleton-line { height: 12px; border-radius: 99px; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; margin-bottom: 10px; }
+    .skeleton-line.short  { width: 60%; }
     .skeleton-line.medium { width: 80%; }
 
-    @keyframes shimmer {
-      0%   { background-position:  200% 0; }
-      100% { background-position: -200% 0; }
-    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
+    /* ─── PRODUCT CARD ─── */
     .product {
-      background: white;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: .22s ease;
-      box-shadow: var(--shadow-sm);
+      background: white; border-radius: var(--radius-lg);
+      border: 1px solid var(--border); overflow: hidden;
+      transition: .22s ease; box-shadow: var(--shadow-sm);
     }
+    .product:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,.11); border-color: transparent; }
 
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(0,0,0,.11);
-      border-color: transparent;
-    }
-
-    .product-thumb {
-      aspect-ratio: 1;
-      background: var(--light-bg);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .product-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: .35s ease;
-    }
-
+    .product-thumb { aspect-ratio: 1; background: var(--light-bg); overflow: hidden; position: relative; }
+    .product-thumb img { width: 100%; height: 100%; object-fit: cover; transition: .35s ease; }
     .product:hover .product-thumb img { transform: scale(1.04); }
 
-    .no-img {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      place-items: center;
-      font-size: 52px;
-      background: linear-gradient(135deg, #fff7ed 0%, #fafafa 100%);
-    }
+    .no-img { width: 100%; height: 100%; display: grid; place-items: center; font-size: 52px; background: linear-gradient(135deg, #fff7ed 0%, #fafafa 100%); }
 
     .product-body { padding: 15px 16px 16px; }
 
     .badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: #fff0ec;
-      color: var(--orange);
-      font-size: 11.5px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 5px 10px; border-radius: 999px;
+      background: #fff0ec; color: var(--orange);
+      font-size: 11.5px; font-weight: 700; margin-bottom: 8px;
     }
 
-    .product h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      line-height: 1.4;
-      margin-bottom: 7px;
-    }
+    .product h3    { font-family: 'Syne', sans-serif; font-size: 15px; line-height: 1.4; margin-bottom: 7px; }
+    .product-price { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900; color: var(--orange); margin-bottom: 6px; }
+    .product-desc  { font-size: 13px; color: var(--muted); line-height: 1.55; min-height: 40px; }
 
-    .product-price {
-      font-family: 'Syne', sans-serif;
-      font-size: 19px;
-      font-weight: 900;
-      color: var(--orange);
-      margin-bottom: 6px;
-    }
-
-    .product-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.55;
-      min-height: 40px;
-    }
-
-    .product-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-    }
+    .product-actions { display: flex; gap: 8px; margin-top: 14px; }
 
     .card-btn {
-      flex: 1;
-      border: 0;
-      border-radius: var(--radius-sm);
-      padding: 11px 8px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      transition: .15s;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
+      flex: 1; border: 0; border-radius: var(--radius-sm);
+      padding: 11px 8px; font-family: 'Outfit', sans-serif;
+      font-weight: 700; font-size: 13px; cursor: pointer;
+      transition: .15s; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
     }
-
     .card-btn:hover { filter: brightness(.93); }
 
-    .card-btn-buy {
-      background: linear-gradient(135deg, var(--orange), var(--orange2));
-      color: white;
-    }
+    .card-btn-buy    { background: linear-gradient(135deg, var(--orange), var(--orange2)); color: white; }
+    .card-btn-copy   { background: var(--light-bg); color: var(--dark); border: 1px solid var(--border); }
+    .card-btn-wa     { background: #dcfce7; color: #16a34a; }
+    .card-btn-edit   { background: #eff6ff; color: #1d4ed8; }
+    .card-btn-delete { background: var(--danger-bg); color: var(--danger); }
 
-    .card-btn-copy {
-      background: var(--light-bg);
-      color: var(--dark);
-      border: 1px solid var(--border);
-    }
+    /* copy button animation */
+    .card-btn-copy.copied { background: #f0fdf4; color: var(--success); border-color: #bbf7d0; }
 
-    .card-btn-edit {
-      background: #eff6ff;
-      color: #1d4ed8;
-    }
+    .admin-row { display: flex; gap: 8px; margin-top: 8px; }
 
-    .card-btn-delete {
-      background: var(--danger-bg);
-      color: var(--danger);
-    }
-
-    .admin-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
+    /* ─── EMPTY STATE ─── */
     .empty-state {
-      grid-column: 1 / -1;
-      background: white;
-      border: 1.5px dashed var(--border);
-      border-radius: var(--radius-xl);
-      padding: 48px 24px;
-      text-align: center;
-      color: var(--muted);
+      grid-column: 1 / -1; background: white;
+      border: 1.5px dashed var(--border); border-radius: var(--radius-xl);
+      padding: 48px 24px; text-align: center; color: var(--muted);
     }
+    .empty-icon { font-size: 48px; margin-bottom: 14px; opacity: .6; }
+    .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 20px; color: var(--dark); margin-bottom: 8px; }
 
-    .empty-icon {
-      font-size: 48px;
-      margin-bottom: 14px;
-      opacity: .6;
+    /* ─── SCROLL TO TOP ─── */
+    #scrollTop {
+      position: fixed; bottom: 24px; left: 24px; z-index: 500;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--dark); color: white;
+      border: 0; cursor: pointer; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s, transform .25s;
     }
-
-    .empty-state h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
+    #scrollTop.show { opacity: 1; pointer-events: all; }
+    #scrollTop:hover { transform: translateY(-3px); }
 
     footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 28px 0 56px;
-      font-size: 13.5px;
-      line-height: 1.7;
+      text-align: center; color: var(--muted);
+      padding: 28px 0 80px; font-size: 13.5px; line-height: 1.7;
       border-top: 1px solid var(--border);
     }
 
     .hidden { display: none !important; }
 
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; padding-top: 38px; }
-      .grid { grid-template-columns: repeat(2, 1fr); }
-      .toolbar { grid-template-columns: 1fr; }
+      .hero   { grid-template-columns: 1fr; padding-top: 38px; }
+      .grid   { grid-template-columns: repeat(2, 1fr); }
+      .toolbar { grid-template-columns: 1fr 1fr; }
+      .toolbar .search-wrap { grid-column: 1 / -1; }
     }
 
     @media (max-width: 560px) {
-      .hero h1 { letter-spacing: -1.2px; }
-      .hero-stats { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
+      .hero h1      { letter-spacing: -1.2px; }
+      .hero-stats   { grid-template-columns: 1fr; }
+      .grid         { grid-template-columns: 1fr; }
+      .form-grid    { grid-template-columns: 1fr; }
       .section-head { display: block; }
+      .toolbar      { grid-template-columns: 1fr; }
       .nav-links a:not(.admin-link) { display: none; }
       #toastContainer { left: 16px; right: 16px; bottom: 16px; }
       .toast { min-width: auto; }
+      #scrollTop { bottom: 16px; left: 16px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Toast -->
   <div id="toastContainer" aria-live="polite"></div>
 
+  <!-- Scroll to top -->
+  <button id="scrollTop" title="Kembali ke atas" aria-label="Kembali ke atas">↑</button>
+
+  <!-- Confirm Modal -->
   <div id="confirmModal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal">
       <h3 id="confirmTitle">Konfirmasi</h3>
       <p id="confirmMessage"></p>
       <div class="modal-actions">
-        <button id="confirmOk"  class="btn btn-danger">Ya, Hapus</button>
+        <button id="confirmOk"     class="btn btn-danger">Ya, Hapus</button>
         <button id="confirmCancel" class="btn btn-ghost">Batal</button>
       </div>
     </div>
   </div>
 
+  <!-- Password Modal -->
   <div id="passwordModal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal">
       <h3>Login Admin</h3>
@@ -830,7 +543,7 @@
         </p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#produk">Lihat Semua Produk</a>
-          <a class="btn btn-ghost" href="?admin=1">Panel Admin</a>
+          <a class="btn btn-ghost"   href="?admin=1">Panel Admin</a>
         </div>
       </div>
 
@@ -841,21 +554,23 @@
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
-            <strong>Live</strong>
-            <span>Produk update real-time</span>
+            <!-- FIX: dynamic product count -->
+            <strong id="heroStatCount">—</strong>
+            <span>Produk tersedia</span>
           </div>
           <div class="hero-stat">
             <strong>Aman</strong>
             <span>Admin terautentikasi</span>
           </div>
           <div class="hero-stat">
-            <strong>Cepat</strong>
-            <span>Firebase Firestore</span>
+            <strong>Live</strong>
+            <span>Update real-time</span>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Admin Panel -->
     <section id="adminPanel" class="admin-panel" aria-label="Panel Admin">
       <div class="admin-header">
         <div>
@@ -864,11 +579,12 @@
         </div>
         <div style="display:flex;gap:10px;">
           <button id="loginBtn"  class="btn btn-primary btn-sm" type="button">Login Admin</button>
-          <button id="logoutBtn" class="btn btn-ghost btn-sm hidden" type="button">Logout</button>
+          <button id="logoutBtn" class="btn btn-ghost   btn-sm hidden" type="button">Logout</button>
         </div>
       </div>
 
       <div class="admin-body">
+        <!-- FIX: store original notice text so we can restore it on logout -->
         <div class="notice" id="noticeBox">
           Data produk tersimpan di <b>Firebase Firestore → products</b>.
           Kamu tidak perlu edit file HTML lagi setiap tambah link Shopee.
@@ -876,8 +592,12 @@
 
         <form id="productForm" class="hidden" novalidate>
           <div class="form-grid">
+
             <label class="field">
-              <span>Nama Produk <span style="color:var(--danger)">*</span></span>
+              <span>
+                Nama Produk <span style="color:var(--danger)">*</span>
+                <span class="char-count" id="cc-title">0/120</span>
+              </span>
               <input id="f-title" type="text" placeholder="Kipas Mini Portable USB" maxlength="120" autocomplete="off" />
             </label>
 
@@ -899,7 +619,11 @@
             <label class="field full">
               <span>URL Gambar</span>
               <small>Pakai link gambar dari Shopee, GitHub, Netlify, atau CDN lain.</small>
-              <input id="f-image" type="url" placeholder="https://el-affiliate-store.netlify.app/preview.jpg" maxlength="500" autocomplete="off" />
+              <input id="f-image" type="url" placeholder="https://..." maxlength="500" autocomplete="off" />
+              <!-- FIX: image preview -->
+              <div class="img-preview-wrap" id="imgPreviewWrap">
+                <img id="imgPreview" src="" alt="Preview gambar produk" />
+              </div>
             </label>
 
             <label class="field full">
@@ -908,19 +632,24 @@
             </label>
 
             <label class="field full">
-              <span>Deskripsi Singkat</span>
+              <span>
+                Deskripsi Singkat
+                <span class="char-count" id="cc-desc">0/400</span>
+              </span>
               <textarea id="f-desc" placeholder="Kipas mini kencang, cocok untuk cuaca panas, bisa isi ulang via USB." maxlength="400"></textarea>
             </label>
+
           </div>
 
           <div class="form-actions">
             <button id="saveBtn"  class="btn btn-primary" type="submit">Simpan Produk</button>
-            <button id="resetBtn" class="btn btn-ghost" type="button">Reset Form</button>
+            <button id="resetBtn" class="btn btn-ghost"   type="button">Reset Form</button>
           </div>
         </form>
       </div>
     </section>
 
+    <!-- Products -->
     <section id="produk">
       <div class="section-head">
         <div>
@@ -939,6 +668,13 @@
         </div>
         <select id="categoryFilter" aria-label="Filter kategori">
           <option value="">Semua kategori</option>
+        </select>
+        <!-- NEW: sort -->
+        <select id="sortSelect" aria-label="Urutkan produk">
+          <option value="newest">Terbaru</option>
+          <option value="oldest">Terlama</option>
+          <option value="az">Nama A–Z</option>
+          <option value="za">Nama Z–A</option>
         </select>
       </div>
 
@@ -964,6 +700,7 @@
       doc, onSnapshot, query, orderBy, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+    /* ─── CONFIG ─── */
     const firebaseConfig = {
       apiKey:            "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
       authDomain:        "el-affiliate-store.firebaseapp.com",
@@ -972,45 +709,62 @@
       messagingSenderId: "1023817787454",
       appId:             "1:1023817787454:web:7516b1a8e4d2d989a6896f"
     };
-
     const ADMIN_EMAIL = "aliansikonoha25@gmail.com";
 
+    /* ─── INIT ─── */
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
     const $id = (id) => document.getElementById(id);
 
-    const adminPanel   = $id("adminPanel");
-    const adminStatus  = $id("adminStatus");
-    const loginBtn     = $id("loginBtn");
-    const logoutBtn    = $id("logoutBtn");
-    const noticeBox    = $id("noticeBox");
-    const productForm  = $id("productForm");
-    const saveBtn      = $id("saveBtn");
-    const productGrid  = $id("productGrid");
-    const productCount = $id("productCount");
-    const searchInput  = $id("searchInput");
-    const catFilter    = $id("categoryFilter");
+    /* ─── DOM REFS ─── */
+    const adminPanel     = $id("adminPanel");
+    const adminStatus    = $id("adminStatus");
+    const loginBtn       = $id("loginBtn");
+    const logoutBtn      = $id("logoutBtn");
+    const noticeBox      = $id("noticeBox");
+    const productForm    = $id("productForm");
+    const saveBtn        = $id("saveBtn");
+    const productGrid    = $id("productGrid");
+    const productCount   = $id("productCount");
+    const searchInput    = $id("searchInput");
+    const catFilter      = $id("categoryFilter");
+    const sortSelect     = $id("sortSelect");
+    const heroStatCount  = $id("heroStatCount");
+    const imgPreview     = $id("imgPreview");
+    const imgPreviewWrap = $id("imgPreviewWrap");
 
-    const fTitle  = $id("f-title");
-    const fPrice  = $id("f-price");
-    const fCat    = $id("f-category");
-    const fBadge  = $id("f-badge");
-    const fImage  = $id("f-image");
-    const fLink   = $id("f-link");
-    const fDesc   = $id("f-desc");
+    const fTitle = $id("f-title");
+    const fPrice = $id("f-price");
+    const fCat   = $id("f-category");
+    const fBadge = $id("f-badge");
+    const fImage = $id("f-image");
+    const fLink  = $id("f-link");
+    const fDesc  = $id("f-desc");
 
+    /* ─── STATE ─── */
     let products    = [];
     let currentUser = null;
     let editingId   = null;
     let loaded      = false;
+
+    // BUG FIX: save original notice HTML so we can restore on logout
+    const NOTICE_DEFAULT_HTML = noticeBox.innerHTML;
 
     $id("year").textContent = new Date().getFullYear();
 
     const isAdminPage = new URLSearchParams(location.search).has("admin");
     if (isAdminPage) adminPanel.style.display = "block";
 
+    /* ─── SCROLL TO TOP ─── */
+    const scrollTopBtn = $id("scrollTop");
+    window.addEventListener("scroll", () => {
+      scrollTopBtn.classList.toggle("show", window.scrollY > 400);
+    }, { passive: true });
+    scrollTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    /* ─── TOAST ─── */
     function toast(message, type = "info", duration = 3500) {
       const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
       const el = document.createElement("div");
@@ -1024,6 +778,7 @@
       }, duration);
     }
 
+    /* ─── CONFIRM MODAL ─── */
     function confirmAction(title, message) {
       return new Promise((resolve) => {
         $id("confirmTitle").textContent   = title;
@@ -1031,24 +786,29 @@
         const backdrop = $id("confirmModal");
         backdrop.classList.add("active");
 
-        const ok = $id("confirmOk");
+        const ok     = $id("confirmOk");
         const cancel = $id("confirmCancel");
 
         const cleanup = (result) => {
           backdrop.classList.remove("active");
-          ok.removeEventListener("click", onOk);
-          cancel.removeEventListener("click", onCancel);
+          ok.removeEventListener("click",      onOk);
+          cancel.removeEventListener("click",  onCancel);
+          backdrop.removeEventListener("click", onBackdrop);
           resolve(result);
         };
 
-        const onOk     = () => cleanup(true);
-        const onCancel = () => cleanup(false);
+        const onOk       = ()  => cleanup(true);
+        const onCancel   = ()  => cleanup(false);
+        // BUG FIX: close modal when clicking backdrop
+        const onBackdrop = (e) => { if (e.target === backdrop) cleanup(false); };
 
-        ok.addEventListener("click",     onOk,     { once: true });
-        cancel.addEventListener("click", onCancel, { once: true });
+        ok.addEventListener("click",      onOk,       { once: true });
+        cancel.addEventListener("click",  onCancel,   { once: true });
+        backdrop.addEventListener("click", onBackdrop);
       });
     }
 
+    /* ─── PASSWORD MODAL ─── */
     function promptPassword() {
       return new Promise((resolve) => {
         const modal = $id("passwordModal");
@@ -1063,22 +823,27 @@
         const cleanup = (val) => {
           modal.classList.remove("active");
           input.value = "";
-          ok.removeEventListener("click",     onOk);
-          cancel.removeEventListener("click", onCancel);
-          input.removeEventListener("keydown", onKey);
+          ok.removeEventListener("click",      onOk);
+          cancel.removeEventListener("click",  onCancel);
+          input.removeEventListener("keydown",  onKey);
+          modal.removeEventListener("click",    onBackdrop);
           resolve(val);
         };
 
-        const onOk     = ()  => cleanup(input.value);
-        const onCancel = ()  => cleanup(null);
-        const onKey    = (e) => { if (e.key === "Enter") cleanup(input.value); };
+        const onOk       = ()  => cleanup(input.value);
+        const onCancel   = ()  => cleanup(null);
+        const onKey      = (e) => { if (e.key === "Enter") cleanup(input.value); };
+        // BUG FIX: close password modal on backdrop click too
+        const onBackdrop = (e) => { if (e.target === modal) cleanup(null); };
 
-        ok.addEventListener("click",     onOk);
-        cancel.addEventListener("click", onCancel);
-        input.addEventListener("keydown", onKey);
+        ok.addEventListener("click",      onOk);
+        cancel.addEventListener("click",  onCancel);
+        input.addEventListener("keydown",  onKey);
+        modal.addEventListener("click",    onBackdrop);
       });
     }
 
+    /* ─── HELPERS ─── */
     function sanitize(value) {
       return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -1092,16 +857,47 @@
       try {
         const u = new URL(url);
         return u.protocol === "https:";
-      } catch {
-        return false;
-      }
+      } catch { return false; }
     }
 
+    function isAdmin() {
+      return currentUser && currentUser.email === ADMIN_EMAIL;
+    }
+
+    /* ─── CHAR COUNTERS ─── */
+    function updateCharCount(input, counterId, max) {
+      const el = $id(counterId);
+      if (!el) return;
+      const len = input.value.length;
+      el.textContent = `${len}/${max}`;
+      el.classList.toggle("warn", len >= max * 0.9);
+    }
+
+    fTitle.addEventListener("input", () => updateCharCount(fTitle, "cc-title", 120));
+    fDesc.addEventListener("input",  () => updateCharCount(fDesc,  "cc-desc",  400));
+
+    /* ─── IMAGE PREVIEW ─── */
+    let imgPreviewTimer;
+    fImage.addEventListener("input", () => {
+      clearTimeout(imgPreviewTimer);
+      const val = fImage.value.trim();
+      if (!val || !isSafeUrl(val)) {
+        imgPreviewWrap.classList.remove("show");
+        return;
+      }
+      imgPreviewTimer = setTimeout(() => {
+        imgPreview.src = val;
+        imgPreview.onload  = () => imgPreviewWrap.classList.add("show");
+        imgPreview.onerror = () => imgPreviewWrap.classList.remove("show");
+      }, 600);
+    });
+
+    /* ─── LOGIN / LOGOUT ─── */
     loginBtn.addEventListener("click", async () => {
       const password = await promptPassword();
       if (!password) return;
 
-      loginBtn.disabled = true;
+      loginBtn.disabled    = true;
       loginBtn.textContent = "Memverifikasi…";
 
       try {
@@ -1109,13 +905,13 @@
         toast("Login berhasil!", "success");
       } catch (err) {
         const map = {
-          "auth/invalid-credential":  "Email atau password salah.",
-          "auth/too-many-requests":   "Terlalu banyak percobaan. Coba lagi beberapa menit.",
-          "auth/network-request-failed": "Gagal terhubung ke server. Periksa koneksi internet.",
+          "auth/invalid-credential":     "Email atau password salah.",
+          "auth/too-many-requests":       "Terlalu banyak percobaan. Coba lagi beberapa menit.",
+          "auth/network-request-failed":  "Gagal terhubung ke server. Periksa koneksi internet.",
         };
         toast(map[err.code] ?? "Login gagal. Coba lagi.", "error");
       } finally {
-        loginBtn.disabled = false;
+        loginBtn.disabled    = false;
         loginBtn.textContent = "Login Admin";
       }
     });
@@ -1125,6 +921,7 @@
       toast("Berhasil logout.", "info");
     });
 
+    /* ─── AUTH STATE ─── */
     onAuthStateChanged(auth, (user) => {
       currentUser = user;
 
@@ -1133,6 +930,15 @@
         loginBtn.classList.remove("hidden");
         logoutBtn.classList.add("hidden");
         productForm.classList.add("hidden");
+
+        // BUG FIX #1 – reset noticeBox on logout
+        noticeBox.classList.remove("success");
+        noticeBox.innerHTML = NOTICE_DEFAULT_HTML;
+
+        // BUG FIX #2 – clear editingId on logout
+        editingId = null;
+        saveBtn.textContent = "Simpan Produk";
+
         renderProducts();
         return;
       }
@@ -1148,21 +954,23 @@
       } else {
         adminStatus.textContent = "Akun ini tidak memiliki akses admin.";
         productForm.classList.add("hidden");
+        noticeBox.classList.remove("success");
         noticeBox.innerHTML = "Akun ini bukan admin. Silakan logout lalu login dengan akun admin yang benar.";
       }
 
       renderProducts();
     });
 
-    function isAdmin() {
-      return currentUser && currentUser.email === ADMIN_EMAIL;
-    }
-
+    /* ─── FIRESTORE LISTENER ─── */
     const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
 
     onSnapshot(q, (snap) => {
       products = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
       loaded   = true;
+
+      // FIX: update dynamic hero stat
+      heroStatCount.textContent = products.length;
+
       buildCategoryFilter();
       renderProducts();
     }, (err) => {
@@ -1172,10 +980,10 @@
           <div class="empty-icon">⚠️</div>
           <h3>Gagal memuat produk</h3>
           <p>Pastikan Firebase Firestore sudah dikonfigurasi dan Security Rules sudah benar.</p>
-        </div>
-      `;
+        </div>`;
     });
 
+    /* ─── SKELETONS ─── */
     function showSkeletons() {
       productGrid.innerHTML = Array.from({ length: 8 }).map(() => `
         <div class="skeleton-card">
@@ -1185,33 +993,44 @@
             <div class="skeleton-line medium"></div>
             <div class="skeleton-line short"></div>
           </div>
-        </div>
-      `).join("");
+        </div>`).join("");
     }
 
+    /* ─── CATEGORY FILTER ─── */
     function buildCategoryFilter() {
       const prev = catFilter.value;
       const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
       catFilter.innerHTML = `<option value="">Semua kategori</option>`;
       cats.forEach(c => {
         const o = document.createElement("option");
-        o.value = c;
-        o.textContent = c;
+        o.value = c; o.textContent = c;
         catFilter.appendChild(o);
       });
       catFilter.value = prev;
     }
 
+    /* ─── RENDER ─── */
     function renderProducts() {
       if (!loaded) { showSkeletons(); return; }
 
-      const kw  = searchInput.value.toLowerCase().trim();
-      const cat = catFilter.value;
+      const kw   = searchInput.value.toLowerCase().trim();
+      const cat  = catFilter.value;
+      const sort = sortSelect.value;
 
-      const list = products.filter(p => {
+      let list = products.filter(p => {
         const txt = `${p.title || ""} ${p.description || ""} ${p.category || ""} ${p.badge || ""}`.toLowerCase();
         return txt.includes(kw) && (!cat || p.category === cat);
       });
+
+      // NEW: sort
+      if (sort === "oldest") {
+        list = [...list].reverse();
+      } else if (sort === "az") {
+        list = [...list].sort((a, b) => (a.title || "").localeCompare(b.title || "", "id"));
+      } else if (sort === "za") {
+        list = [...list].sort((a, b) => (b.title || "").localeCompare(a.title || "", "id"));
+      }
+      // "newest" is default (already ordered by Firestore)
 
       productCount.textContent = list.length ? `${list.length} produk` : "";
 
@@ -1233,10 +1052,15 @@
         article.setAttribute("role", "listitem");
         article.dataset.id = p.id;
 
-        const safeTitle = sanitize(p.title   || "Produk Shopee");
-        const safePrice = sanitize(p.price   || "Cek harga di Shopee");
-        const safeDesc  = sanitize(p.description || "Produk pilihan dari Shopee Affiliate.");
+        const safeTitle = sanitize(p.title        || "Produk Shopee");
+        const safePrice = sanitize(p.price        || "Cek harga di Shopee");
+        const safeDesc  = sanitize(p.description  || "Produk pilihan dari Shopee Affiliate.");
         const safeBadge = sanitize(p.badge || p.category || "Rekomendasi");
+        const safeHref  = (p.link && isSafeUrl(p.link)) ? sanitize(p.link) : "#";
+
+        // NEW: WhatsApp share URL
+        const waText    = encodeURIComponent(`🛍️ Cek produk ini: ${p.title || "Produk Shopee"}\n${p.price ? p.price + "\n" : ""}${p.link || ""}`);
+        const waHref    = `https://wa.me/?text=${waText}`;
 
         let thumbHTML;
         if (p.imageUrl && isSafeUrl(p.imageUrl)) {
@@ -1244,8 +1068,6 @@
         } else {
           thumbHTML = `<div class="no-img">🛍️</div>`;
         }
-
-        const safeHref = (p.link && isSafeUrl(p.link)) ? sanitize(p.link) : "#";
 
         article.innerHTML = `
           <div class="product-thumb">${thumbHTML}</div>
@@ -1255,26 +1077,28 @@
             <div class="product-price">${safePrice}</div>
             <div class="product-desc">${safeDesc}</div>
             <div class="product-actions">
-              <a class="card-btn card-btn-buy" href="${safeHref}" target="_blank" rel="noopener noreferrer">Beli di Shopee</a>
+              <a  class="card-btn card-btn-buy"  href="${safeHref}" target="_blank" rel="noopener noreferrer">Beli di Shopee</a>
               <button class="card-btn card-btn-copy" type="button" data-action="copy" aria-label="Salin link">Salin</button>
+              <a  class="card-btn card-btn-wa"   href="${waHref}"  target="_blank" rel="noopener noreferrer" aria-label="Bagikan via WhatsApp" title="Bagikan via WhatsApp">🟢</a>
             </div>
             ${isAdmin() ? `
             <div class="admin-row">
-              <button class="card-btn card-btn-edit" type="button" data-action="edit" aria-label="Edit produk">Edit</button>
+              <button class="card-btn card-btn-edit"   type="button" data-action="edit"   aria-label="Edit produk">Edit</button>
               <button class="card-btn card-btn-delete" type="button" data-action="delete" aria-label="Hapus produk">Hapus</button>
             </div>` : ""}
           </div>`;
 
+        // fallback image
         const img = article.querySelector(".prod-img-el");
         if (img) {
           img.addEventListener("error", () => {
             const thumb = img.closest(".product-thumb");
             if (thumb) {
               img.remove();
-              const fallback = document.createElement("div");
-              fallback.className = "no-img";
-              fallback.textContent = "🛍️";
-              thumb.appendChild(fallback);
+              const fb = document.createElement("div");
+              fb.className   = "no-img";
+              fb.textContent = "🛍️";
+              thumb.appendChild(fb);
             }
           }, { once: true });
         }
@@ -1286,8 +1110,9 @@
       productGrid.appendChild(frag);
     }
 
+    /* ─── CARD ACTIONS ─── */
     productGrid.addEventListener("click", async (e) => {
-      const btn = e.target.closest("[data-action]");
+      const btn     = e.target.closest("[data-action]");
       if (!btn) return;
 
       const action  = btn.dataset.action;
@@ -1298,43 +1123,62 @@
       const p = products.find(x => x.id === id);
       if (!p) return;
 
+      /* copy link */
       if (action === "copy") {
         const link = p.link || "";
         try {
           await navigator.clipboard.writeText(link);
+          btn.textContent = "✓ Tersalin";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Salin";
+            btn.classList.remove("copied");
+          }, 2000);
           toast("Link berhasil disalin!", "success");
         } catch {
           toast(`Salin link ini secara manual: ${link}`, "warning", 8000);
         }
       }
 
+      /* edit */
       if (action === "edit") {
         if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
         startEdit(p);
       }
 
+      /* delete */
       if (action === "delete") {
         if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
-        const ok = await confirmAction("Hapus Produk", `Yakin ingin menghapus "${p.title || "produk ini"}"? Tindakan ini tidak dapat dibatalkan.`);
+        const ok = await confirmAction(
+          "Hapus Produk",
+          `Yakin ingin menghapus "${p.title || "produk ini"}"? Tindakan ini tidak dapat dibatalkan.`
+        );
         if (!ok) return;
+
+        btn.textContent = "Menghapus…";
+        btn.disabled    = true;
         try {
           await deleteDoc(doc(db, "products", id));
           toast("Produk berhasil dihapus.", "success");
         } catch (err) {
           console.error(err.code);
           toast("Gagal menghapus produk.", "error");
+          btn.textContent = "Hapus";
+          btn.disabled    = false;
         }
       }
     });
 
+    /* ─── SAVE / UPDATE ─── */
     productForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
 
-      const title = fTitle.value.trim();
-      const link  = fLink.value.trim();
+      const title    = fTitle.value.trim();
+      const link     = fLink.value.trim();
+      const imageUrl = fImage.value.trim();
 
-      if (!title) { toast("Nama produk wajib diisi.", "warning"); fTitle.focus(); return; }
+      if (!title) { toast("Nama produk wajib diisi.",  "warning"); fTitle.focus(); return; }
       if (!link)  { toast("Link affiliate wajib diisi.", "warning"); fLink.focus(); return; }
       if (!isSafeUrl(link)) { toast("Link tidak valid. Harus diawali https://", "warning"); fLink.focus(); return; }
 
@@ -1343,7 +1187,6 @@
         if (!ok) return;
       }
 
-      const imageUrl = fImage.value.trim();
       if (imageUrl && !isSafeUrl(imageUrl)) {
         toast("URL gambar harus diawali https://", "warning");
         fImage.focus();
@@ -1361,6 +1204,7 @@
         updatedAt:   serverTimestamp()
       };
 
+      // trim string values to max 500 chars
       Object.keys(data).forEach(k => {
         if (typeof data[k] === "string") data[k] = data[k].slice(0, 500);
       });
@@ -1382,7 +1226,7 @@
         toast("Gagal menyimpan produk. Coba lagi.", "error");
       } finally {
         saveBtn.disabled    = false;
-        saveBtn.textContent = "Simpan Produk";
+        saveBtn.textContent = editingId ? "Update Produk" : "Simpan Produk";
       }
     });
 
@@ -1392,24 +1236,47 @@
       editingId = null;
       productForm.reset();
       saveBtn.textContent = "Simpan Produk";
+      imgPreviewWrap.classList.remove("show");
+      updateCharCount(fTitle, "cc-title", 120);
+      updateCharCount(fDesc,  "cc-desc",  400);
     }
 
+    /* ─── START EDIT ─── */
     function startEdit(p) {
-      editingId       = p.id;
-      fTitle.value    = p.title       || "";
-      fPrice.value    = p.price       || "";
-      fCat.value      = p.category    || "";
-      fBadge.value    = p.badge       || "";
-      fImage.value    = p.imageUrl    || "";
-      fLink.value     = p.link        || "";
-      fDesc.value     = p.description || "";
+      editingId           = p.id;
+      fTitle.value        = p.title       || "";
+      fPrice.value        = p.price       || "";
+      fCat.value          = p.category    || "";
+      fBadge.value        = p.badge       || "";
+      fImage.value        = p.imageUrl    || "";
+      fLink.value         = p.link        || "";
+      fDesc.value         = p.description || "";
       saveBtn.textContent = "Update Produk";
-      adminPanel.scrollIntoView({ behavior: "smooth" });
+
+      // update char counters
+      updateCharCount(fTitle, "cc-title", 120);
+      updateCharCount(fDesc,  "cc-desc",  400);
+
+      // BUG FIX #3: show image preview if imageUrl is set
+      if (p.imageUrl && isSafeUrl(p.imageUrl)) {
+        imgPreview.src = p.imageUrl;
+        imgPreview.onload  = () => imgPreviewWrap.classList.add("show");
+        imgPreview.onerror = () => imgPreviewWrap.classList.remove("show");
+      } else {
+        imgPreviewWrap.classList.remove("show");
+      }
+
+      // BUG FIX #4: make sure admin panel is visible before scrolling
+      adminPanel.style.display = "block";
+      adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    /* ─── SEARCH / FILTER / SORT ─── */
     searchInput.addEventListener("input",  renderProducts);
     catFilter.addEventListener("change",   renderProducts);
+    sortSelect.addEventListener("change",  renderProducts);
 
+    /* ─── INIT ─── */
     showSkeletons();
   </script>
 </body>
