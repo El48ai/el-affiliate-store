@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>EL Affiliate Store - Produk Viral Shopee</title>
-
-  <meta name="description" content="Kumpulan produk Shopee Affiliate pilihan, murah, viral, dan berguna. Klik untuk lihat produk rekomendasi terbaru." />
+  <meta name="description" content="Kumpulan produk Shopee Affiliate pilihan, murah, viral, dan berguna." />
   <meta name="theme-color" content="#e8390e" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://el-affiliate-store.netlify.app/" />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="EL Affiliate Store - Produk Viral Shopee" />
   <meta property="og:description" content="Kumpulan produk Shopee murah, viral, dan berguna. Klik untuk lihat rekomendasi produk terbaru!" />
   <meta property="og:image" content="https://el-affiliate-store.netlify.app/preview.jpg" />
@@ -21,17 +19,14 @@
   <meta property="og:site_name" content="EL Affiliate Store" />
   <meta property="og:locale" content="id_ID" />
 
-  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="EL Affiliate Store - Produk Viral Shopee" />
   <meta name="twitter:description" content="Produk viral Shopee terbaik setiap hari. Cek sekarang!" />
   <meta name="twitter:image" content="https://el-affiliate-store.netlify.app/preview.jpg" />
 
-  <!-- Icon -->
   <link rel="icon" href="/icon.png" />
   <link rel="apple-touch-icon" href="/icon.png" />
 
-  <!-- SECURITY: CSP via meta -->
   <meta http-equiv="Content-Security-Policy"
     content="
       default-src 'self' https: data:;
@@ -49,119 +44,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange:    #e8390e;
-      --orange2:   #f97316;
-      --amber:     #fbbf24;
-      --dark:      #0f0f0f;
-      --dark2:     #1a1a1a;
-      --surface:   #ffffff;
-      --muted:     #71717a;
-      --border:    #e4e4e7;
-      --light-bg:  #fafafa;
-      --danger:    #dc2626;
-      --danger-bg: #fef2f2;
-      --success:   #16a34a;
-      --success-bg:#f0fdf4;
-      --radius-sm: 12px;
-      --radius-md: 20px;
-      --radius-lg: 28px;
-      --radius-xl: 36px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-      --shadow-md: 0 4px 24px rgba(0,0,0,.08);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,.1);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --orange: #e8390e;
+      --orange2: #f97316;
+      --dark: #0f0f0f;
+      --dark2: #1a1a1a;
+      --muted: #71717a;
+      --border: #e4e4e7;
+      --bg: #fafafa;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --radius: 24px;
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Outfit', sans-serif;
-      background: var(--light-bg);
+      background:
+        radial-gradient(circle at top right, rgba(232,57,14,.13), transparent 34%),
+        linear-gradient(180deg, #fff 0%, var(--bg) 48%, #fff 100%);
       color: var(--dark);
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── TOAST ─── */
-    #toastContainer {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .toast {
-      pointer-events: all;
-      min-width: 280px;
-      max-width: 360px;
-      padding: 14px 18px;
-      border-radius: var(--radius-md);
-      background: var(--dark);
-      color: white;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.25);
-      animation: toastIn .3s cubic-bezier(.34,1.56,.64,1);
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
     }
-
-    .toast.success { background: #14532d; }
-    .toast.error   { background: #7f1d1d; }
-    .toast.warning { background: #78350f; }
-    .toast-icon    { font-size: 18px; flex-shrink: 0; }
-
-    @keyframes toastIn  { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0);    opacity: 1; } }
-    @keyframes toastOut { from { transform: translateX(0);    opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
-
-    /* ─── MODAL ─── */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.5);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-backdrop.active { display: flex; }
-
-    .modal {
-      background: white;
-      border-radius: var(--radius-xl);
-      padding: 32px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: var(--shadow-lg);
-      animation: modalIn .25s cubic-bezier(.34,1.56,.64,1);
-      position: relative; /* prevent backdrop click bleed */
-    }
-
-    @keyframes modalIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-    .modal h3 { font-family: 'Syne', sans-serif; font-size: 22px; margin-bottom: 8px; }
-    .modal p  { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
-    .modal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    /* ─── LAYOUT ─── */
-    .container { width: min(1180px, 92%); margin: auto; }
 
     header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(250,250,250,.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,250,.86);
+      backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -174,181 +105,364 @@
     }
 
     .logo {
-      display: flex; align-items: center; gap: 12px;
-      font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      font-size: 19px;
     }
 
     .logo-mark {
-      width: 42px; height: 42px; border-radius: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
       background: linear-gradient(135deg, var(--orange), var(--orange2));
-      display: grid; place-items: center;
-      color: white; font-family: 'Syne', sans-serif; font-weight: 900; font-size: 15px;
-      box-shadow: 0 8px 20px rgba(232,57,14,.3); flex-shrink: 0;
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 22px rgba(232,57,14,.30);
     }
 
-    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     .nav-links a {
-      padding: 8px 16px; border-radius: 999px;
-      font-size: 14px; font-weight: 600; color: var(--muted); transition: .15s;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 999px;
     }
-    .nav-links a:hover { background: white; color: var(--dark); }
 
-    /* ─── BUTTONS ─── */
+    .nav-links a:hover {
+      background: white;
+      color: var(--dark);
+    }
+
     .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 7px; border: 0; cursor: pointer; border-radius: 999px;
-      padding: 12px 22px; font-family: 'Outfit', sans-serif;
-      font-size: 14px; font-weight: 700; transition: .2s ease; white-space: nowrap;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: .2s;
+      white-space: nowrap;
     }
-    .btn:hover   { transform: translateY(-1px); }
-    .btn:active  { transform: translateY(0); }
-    .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    .btn-primary { background: linear-gradient(135deg, var(--orange), var(--orange2)); color: white; box-shadow: 0 8px 24px rgba(232,57,14,.28); }
-    .btn-dark    { background: var(--dark); color: white; }
-    .btn-ghost   { background: white; color: var(--dark); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-    .btn-soft    { background: #fff0ec; color: var(--orange); }
-    .btn-danger  { background: var(--danger-bg); color: var(--danger); }
-    .btn-sm      { padding: 9px 16px; font-size: 13px; }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
 
-    /* ─── HERO ─── */
+    .btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      box-shadow: 0 10px 24px rgba(232,57,14,.25);
+    }
+
+    .btn-ghost {
+      background: white;
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: #fef2f2;
+      color: var(--danger);
+    }
+
+    .btn-sm {
+      padding: 9px 15px;
+      font-size: 13px;
+    }
+
     .hero {
-      padding: 56px 0 44px;
+      padding: 56px 0 42px;
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 40px;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 38px;
       align-items: center;
     }
 
     .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 7px 14px; border-radius: 999px;
-      background: #fff0ec; color: var(--orange);
-      font-size: 13px; font-weight: 700; margin-bottom: 20px;
+      display: inline-flex;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #fff0ec;
+      color: var(--orange);
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
       font-family: 'Syne', sans-serif;
       font-size: clamp(40px, 5.5vw, 68px);
-      line-height: 1.0; letter-spacing: -2px; margin-bottom: 18px;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
     }
-    .hero h1 .accent { color: var(--orange); }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
 
     .hero p {
-      color: var(--muted); font-size: 17px; line-height: 1.75;
-      max-width: 480px; margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 26px;
     }
 
-    .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
     .hero-card {
-      background: white; border-radius: var(--radius-xl);
-      border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
     }
 
     .hero-card-top {
-      background: linear-gradient(135deg, var(--dark2), #2d2d2d);
-      padding: 26px; position: relative; overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(249,115,22,.3), transparent 35%),
+        linear-gradient(135deg, var(--dark2), #2d2d2d);
+      color: white;
+      padding: 28px;
     }
-    .hero-card-top::before {
-      content: ''; position: absolute; top: -30px; right: -30px;
-      width: 160px; height: 160px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,57,14,.35), transparent 70%);
-    }
-    .hero-card-top h2 {
-      font-family: 'Syne', sans-serif; font-size: 28px;
-      color: white; line-height: 1.15; margin-bottom: 8px; position: relative;
-    }
-    .hero-card-top p { color: rgba(255,255,255,.65); font-size: 14px; line-height: 1.6; position: relative; }
 
-    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 18px; gap: 12px; }
+    .hero-card-top h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-top p {
+      color: rgba(255,255,255,.68);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 18px;
+    }
 
     .hero-stat {
-      background: var(--light-bg); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 16px 14px; text-align: center;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 18px;
+      padding: 15px 12px;
+      text-align: center;
     }
-    .hero-stat strong {
-      display: block; font-family: 'Syne', sans-serif;
-      font-size: 18px; color: var(--orange); margin-bottom: 4px;
-    }
-    .hero-stat span { font-size: 12px; color: var(--muted); line-height: 1.4; }
 
-    /* ─── ADMIN PANEL ─── */
+    .hero-stat strong {
+      color: var(--orange);
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
     .admin-panel {
-      display: none; background: white;
-      border: 1px solid var(--border); border-radius: var(--radius-xl);
-      overflow: hidden; box-shadow: var(--shadow-md); margin: 32px 0;
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+      margin: 30px 0;
     }
 
     .admin-header {
       background: linear-gradient(135deg, var(--dark2), #2d2d2d);
       padding: 24px 28px;
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; flex-wrap: wrap;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
     }
-    .admin-header h2 { font-family: 'Syne', sans-serif; font-size: 22px; color: white; margin-bottom: 4px; }
-    .admin-header p  { color: rgba(255,255,255,.6); font-size: 13px; }
 
-    .admin-body { padding: 24px 28px; }
+    .admin-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .admin-header p {
+      color: rgba(255,255,255,.66);
+      font-size: 13px;
+    }
+
+    .admin-body {
+      padding: 24px 28px;
+    }
 
     .notice {
-      padding: 13px 16px; border-radius: var(--radius-md);
-      background: #fff7ed; border: 1px solid #fed7aa;
-      color: #9a3412; font-size: 13.5px; line-height: 1.6; margin-bottom: 20px;
+      padding: 13px 16px;
+      border-radius: 18px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
     }
-    .notice.success { background: var(--success-bg); border-color: #bbf7d0; color: #14532d; }
 
-    /* ─── FORM ─── */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .full { grid-column: 1 / -1; }
+    .notice.success {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #14532d;
+    }
 
-    label.field { display: flex; flex-direction: column; gap: 6px; }
-    label.field span  { font-size: 13px; font-weight: 600; color: var(--dark); display: flex; justify-content: space-between; align-items: center; }
-    label.field small { font-size: 12px; color: var(--muted); }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
-    /* ── char counter ── */
-    .char-count { font-size: 11px; color: var(--muted); font-weight: 400; }
-    .char-count.warn { color: var(--danger); }
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label.field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label.field span {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    label.field small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
 
     input, select, textarea {
-      width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-md);
-      padding: 12px 15px; font-size: 14.5px; font-family: 'Outfit', sans-serif;
-      outline: none; background: var(--light-bg); color: var(--dark); transition: .15s;
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 12px 15px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14.5px;
+      outline: none;
+      background: var(--bg);
+      color: var(--dark);
     }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--orange); background: white;
-      box-shadow: 0 0 0 4px rgba(232,57,14,.1);
-    }
-    textarea { min-height: 88px; resize: vertical; }
 
-    /* ── image preview ── */
+    input:focus, select:focus, textarea:focus {
+      background: white;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(232,57,14,.10);
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .char-count {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .char-count.warn {
+      color: var(--danger);
+    }
+
     .img-preview-wrap {
       display: none;
+      height: 150px;
       margin-top: 8px;
-      border-radius: var(--radius-md);
+      border-radius: 18px;
       overflow: hidden;
       border: 1.5px solid var(--border);
-      height: 140px;
-      background: var(--light-bg);
+      background: var(--bg);
     }
-    .img-preview-wrap.show { display: block; }
+
+    .img-preview-wrap.show {
+      display: block;
+    }
+
     .img-preview-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
 
-    /* ─── SECTION HEAD ─── */
     .section-head {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 16px; margin: 40px 0 18px;
+      margin: 40px 0 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
     }
-    .section-head h2 { font-family: 'Syne', sans-serif; font-size: 30px; letter-spacing: -1px; margin-bottom: 4px; }
-    .section-head p  { color: var(--muted); font-size: 15px; }
-    #productCount    { font-size: 13px; color: var(--muted); white-space: nowrap; }
 
-    /* ─── TOOLBAR ─── */
+    .section-head h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 31px;
+      margin-bottom: 5px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    #productCount {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
     .toolbar {
       display: grid;
       grid-template-columns: 1fr 180px 180px;
@@ -356,14 +470,23 @@
       margin-bottom: 22px;
     }
 
-    .search-wrap { position: relative; }
-    .search-wrap svg {
-      position: absolute; left: 16px; top: 50%;
-      transform: translateY(-50%); color: var(--muted); pointer-events: none;
+    .search-wrap {
+      position: relative;
     }
-    .search-wrap input { padding-left: 44px; }
 
-    /* ─── GRID ─── */
+    .search-wrap svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-wrap input {
+      padding-left: 43px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -371,139 +494,378 @@
       padding-bottom: 60px;
     }
 
-    /* skeleton */
-    .skeleton-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; }
-    .skeleton-img  { aspect-ratio: 1; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
-    .skeleton-body { padding: 16px; }
-    .skeleton-line { height: 12px; border-radius: 99px; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; margin-bottom: 10px; }
-    .skeleton-line.short  { width: 60%; }
-    .skeleton-line.medium { width: 80%; }
-
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-    /* ─── PRODUCT CARD ─── */
     .product {
-      background: white; border-radius: var(--radius-lg);
-      border: 1px solid var(--border); overflow: hidden;
-      transition: .22s ease; box-shadow: var(--shadow-sm);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+      transition: .22s;
     }
-    .product:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,.11); border-color: transparent; }
 
-    .product-thumb { aspect-ratio: 1; background: var(--light-bg); overflow: hidden; position: relative; }
-    .product-thumb img { width: 100%; height: 100%; object-fit: cover; transition: .35s ease; }
-    .product:hover .product-thumb img { transform: scale(1.04); }
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(0,0,0,.11);
+      border-color: transparent;
+    }
 
-    .no-img { width: 100%; height: 100%; display: grid; place-items: center; font-size: 52px; background: linear-gradient(135deg, #fff7ed 0%, #fafafa 100%); }
+    .product-thumb {
+      aspect-ratio: 1 / 1;
+      background: var(--bg);
+      overflow: hidden;
+    }
 
-    .product-body { padding: 15px 16px 16px; }
+    .product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .35s;
+    }
+
+    .product:hover .product-thumb img {
+      transform: scale(1.04);
+    }
+
+    .no-img {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      font-size: 52px;
+      background: linear-gradient(135deg, #fff7ed, #fafafa);
+    }
+
+    .product-body {
+      padding: 15px 16px 16px;
+    }
 
     .badge-pill {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 5px 10px; border-radius: 999px;
-      background: #fff0ec; color: var(--orange);
-      font-size: 11.5px; font-weight: 700; margin-bottom: 8px;
+      display: inline-flex;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #fff0ec;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
-    .product h3    { font-family: 'Syne', sans-serif; font-size: 15px; line-height: 1.4; margin-bottom: 7px; }
-    .product-price { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900; color: var(--orange); margin-bottom: 6px; }
-    .product-desc  { font-size: 13px; color: var(--muted); line-height: 1.55; min-height: 40px; }
+    .product h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 15.5px;
+      line-height: 1.35;
+      margin-bottom: 7px;
+    }
 
-    .product-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .product-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+
+    .product-desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      min-height: 40px;
+    }
+
+    .product-actions,
+    .admin-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 13px;
+    }
 
     .card-btn {
-      flex: 1; border: 0; border-radius: var(--radius-sm);
-      padding: 11px 8px; font-family: 'Outfit', sans-serif;
-      font-weight: 700; font-size: 13px; cursor: pointer;
-      transition: .15s; text-align: center;
-      display: flex; align-items: center; justify-content: center; gap: 5px;
+      flex: 1;
+      border: 0;
+      border-radius: 14px;
+      padding: 11px 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .15s;
     }
-    .card-btn:hover { filter: brightness(.93); }
 
-    .card-btn-buy    { background: linear-gradient(135deg, var(--orange), var(--orange2)); color: white; }
-    .card-btn-copy   { background: var(--light-bg); color: var(--dark); border: 1px solid var(--border); }
-    .card-btn-wa     { background: #dcfce7; color: #16a34a; }
-    .card-btn-edit   { background: #eff6ff; color: #1d4ed8; }
-    .card-btn-delete { background: var(--danger-bg); color: var(--danger); }
+    .card-btn:hover {
+      filter: brightness(.94);
+    }
 
-    /* copy button animation */
-    .card-btn-copy.copied { background: #f0fdf4; color: var(--success); border-color: #bbf7d0; }
+    .card-btn-buy {
+      color: white;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+    }
 
-    .admin-row { display: flex; gap: 8px; margin-top: 8px; }
+    .card-btn-copy {
+      background: var(--bg);
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
 
-    /* ─── EMPTY STATE ─── */
+    .card-btn-copy.copied {
+      background: #f0fdf4;
+      color: var(--success);
+      border-color: #bbf7d0;
+    }
+
+    .card-btn-edit {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .card-btn-delete {
+      background: #fef2f2;
+      color: var(--danger);
+    }
+
     .empty-state {
-      grid-column: 1 / -1; background: white;
-      border: 1.5px dashed var(--border); border-radius: var(--radius-xl);
-      padding: 48px 24px; text-align: center; color: var(--muted);
+      grid-column: 1 / -1;
+      border: 1.5px dashed var(--border);
+      border-radius: 32px;
+      background: white;
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--muted);
     }
-    .empty-icon { font-size: 48px; margin-bottom: 14px; opacity: .6; }
-    .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 20px; color: var(--dark); margin-bottom: 8px; }
 
-    /* ─── SCROLL TO TOP ─── */
-    #scrollTop {
-      position: fixed; bottom: 24px; left: 24px; z-index: 500;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--dark); color: white;
-      border: 0; cursor: pointer; font-size: 18px;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,.2);
-      opacity: 0; pointer-events: none;
-      transition: opacity .25s, transform .25s;
+    .empty-state h3 {
+      color: var(--dark);
+      font-family: 'Syne', sans-serif;
+      font-size: 21px;
+      margin: 10px 0 6px;
     }
-    #scrollTop.show { opacity: 1; pointer-events: all; }
-    #scrollTop:hover { transform: translateY(-3px); }
+
+    .empty-icon {
+      font-size: 48px;
+      opacity: .65;
+    }
+
+    .skeleton-card {
+      background: white;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .skeleton-img {
+      aspect-ratio: 1;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e3e3e3 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    .skeleton-body {
+      padding: 16px;
+    }
+
+    .skeleton-line {
+      height: 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e3e3e3 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    .skeleton-line.short { width: 60%; }
+    .skeleton-line.medium { width: 82%; }
+
+    @keyframes shimmer {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,.50);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      width: min(420px, 100%);
+      background: white;
+      border-radius: 32px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .toast {
+      pointer-events: all;
+      min-width: 280px;
+      max-width: 360px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: var(--dark);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    }
+
+    .toast.success { background: #14532d; }
+    .toast.error { background: #7f1d1d; }
+    .toast.warning { background: #78350f; }
+
+    #scrollTop {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 500;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--dark);
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s;
+    }
+
+    #scrollTop.show {
+      opacity: 1;
+      pointer-events: all;
+    }
 
     footer {
-      text-align: center; color: var(--muted);
-      padding: 28px 0 80px; font-size: 13.5px; line-height: 1.7;
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 80px;
+      font-size: 13.5px;
+      line-height: 1.7;
       border-top: 1px solid var(--border);
     }
 
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
-      .hero   { grid-template-columns: 1fr; padding-top: 38px; }
-      .grid   { grid-template-columns: repeat(2, 1fr); }
-      .toolbar { grid-template-columns: 1fr 1fr; }
-      .toolbar .search-wrap { grid-column: 1 / -1; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 38px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .toolbar .search-wrap {
+        grid-column: 1 / -1;
+      }
     }
 
     @media (max-width: 560px) {
-      .hero h1      { letter-spacing: -1.2px; }
-      .hero-stats   { grid-template-columns: 1fr; }
-      .grid         { grid-template-columns: 1fr; }
-      .form-grid    { grid-template-columns: 1fr; }
-      .section-head { display: block; }
-      .toolbar      { grid-template-columns: 1fr; }
-      .nav-links a:not(.admin-link) { display: none; }
-      #toastContainer { left: 16px; right: 16px; bottom: 16px; }
-      .toast { min-width: auto; }
-      #scrollTop { bottom: 16px; left: 16px; }
+      .hero h1 {
+        letter-spacing: -1.2px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .nav-links a:not(.admin-link) {
+        display: none;
+      }
+
+      #toastContainer {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .toast {
+        min-width: auto;
+      }
+
+      #scrollTop {
+        bottom: 16px;
+        left: 16px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Toast -->
   <div id="toastContainer" aria-live="polite"></div>
 
-  <!-- Scroll to top -->
   <button id="scrollTop" title="Kembali ke atas" aria-label="Kembali ke atas">↑</button>
 
-  <!-- Confirm Modal -->
   <div id="confirmModal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal">
       <h3 id="confirmTitle">Konfirmasi</h3>
       <p id="confirmMessage"></p>
       <div class="modal-actions">
-        <button id="confirmOk"     class="btn btn-danger">Ya, Hapus</button>
+        <button id="confirmOk" class="btn btn-danger">Ya, Hapus</button>
         <button id="confirmCancel" class="btn btn-ghost">Batal</button>
       </div>
     </div>
   </div>
 
-  <!-- Password Modal -->
   <div id="passwordModal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal">
       <h3>Login Admin</h3>
@@ -513,7 +875,7 @@
         <input type="password" id="passwordInput" placeholder="••••••••" autocomplete="current-password" />
       </label>
       <div class="modal-actions">
-        <button id="passwordOk"     class="btn btn-primary">Masuk</button>
+        <button id="passwordOk" class="btn btn-primary">Masuk</button>
         <button id="passwordCancel" class="btn btn-ghost">Batal</button>
       </div>
     </div>
@@ -525,6 +887,7 @@
         <div class="logo-mark">EL</div>
         EL Affiliate Store
       </a>
+
       <nav class="nav-links">
         <a href="#produk">Produk</a>
         <a class="admin-link" href="?admin=1">Admin</a>
@@ -536,14 +899,15 @@
     <section class="hero">
       <div>
         <div class="hero-eyebrow">🔥 Shopee Affiliate Picks</div>
-        <h1>Produk <span class="accent">viral pilihan</span> yang lagi hits.</h1>
+        <h1>Produk <span>viral pilihan</span> yang lagi hits.</h1>
         <p>
           Kumpulan rekomendasi produk murah, berguna, dan menarik.
           Klik tombol beli untuk langsung menuju produk di Shopee.
         </p>
+
         <div class="hero-cta">
           <a class="btn btn-primary" href="#produk">Lihat Semua Produk</a>
-          <a class="btn btn-ghost"   href="?admin=1">Panel Admin</a>
+          <a class="btn btn-ghost" href="?admin=1">Panel Admin</a>
         </div>
       </div>
 
@@ -552,9 +916,9 @@
           <h2>Belanja lebih mudah &amp; cepat</h2>
           <p>Semua produk affiliate tampil rapi, bisa dicari, dan langsung terhubung ke Shopee.</p>
         </div>
+
         <div class="hero-stats">
           <div class="hero-stat">
-            <!-- FIX: dynamic product count -->
             <strong id="heroStatCount">—</strong>
             <span>Produk tersedia</span>
           </div>
@@ -570,21 +934,20 @@
       </div>
     </section>
 
-    <!-- Admin Panel -->
     <section id="adminPanel" class="admin-panel" aria-label="Panel Admin">
       <div class="admin-header">
         <div>
           <h2>Panel Admin</h2>
           <p id="adminStatus">Login dengan password admin untuk tambah produk.</p>
         </div>
-        <div style="display:flex;gap:10px;">
-          <button id="loginBtn"  class="btn btn-primary btn-sm" type="button">Login Admin</button>
-          <button id="logoutBtn" class="btn btn-ghost   btn-sm hidden" type="button">Logout</button>
+
+        <div style="display:flex; gap:10px;">
+          <button id="loginBtn" class="btn btn-primary btn-sm" type="button">Login Admin</button>
+          <button id="logoutBtn" class="btn btn-ghost btn-sm hidden" type="button">Logout</button>
         </div>
       </div>
 
       <div class="admin-body">
-        <!-- FIX: store original notice text so we can restore it on logout -->
         <div class="notice" id="noticeBox">
           Data produk tersimpan di <b>Firebase Firestore → products</b>.
           Kamu tidak perlu edit file HTML lagi setiap tambah link Shopee.
@@ -592,7 +955,6 @@
 
         <form id="productForm" class="hidden" novalidate>
           <div class="form-grid">
-
             <label class="field">
               <span>
                 Nama Produk <span style="color:var(--danger)">*</span>
@@ -618,9 +980,9 @@
 
             <label class="field full">
               <span>URL Gambar</span>
-              <small>Pakai link gambar dari Shopee, GitHub, Netlify, atau CDN lain.</small>
-              <input id="f-image" type="url" placeholder="https://..." maxlength="500" autocomplete="off" />
-              <!-- FIX: image preview -->
+              <small>Bisa isi: <b>tumbler-bear.png</b> atau link lengkap <b>https://...</b></small>
+              <input id="f-image" type="text" placeholder="tumbler-bear.png" maxlength="500" autocomplete="off" />
+
               <div class="img-preview-wrap" id="imgPreviewWrap">
                 <img id="imgPreview" src="" alt="Preview gambar produk" />
               </div>
@@ -638,38 +1000,39 @@
               </span>
               <textarea id="f-desc" placeholder="Kipas mini kencang, cocok untuk cuaca panas, bisa isi ulang via USB." maxlength="400"></textarea>
             </label>
-
           </div>
 
           <div class="form-actions">
-            <button id="saveBtn"  class="btn btn-primary" type="submit">Simpan Produk</button>
-            <button id="resetBtn" class="btn btn-ghost"   type="button">Reset Form</button>
+            <button id="saveBtn" class="btn btn-primary" type="submit">Simpan Produk</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button">Reset Form</button>
           </div>
         </form>
       </div>
     </section>
 
-    <!-- Products -->
     <section id="produk">
       <div class="section-head">
         <div>
           <h2>Produk Pilihan</h2>
           <p>Rekomendasi produk Shopee Affiliate terbaik.</p>
         </div>
+
         <span id="productCount"></span>
       </div>
 
       <div class="toolbar">
         <div class="search-wrap">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
           </svg>
           <input id="searchInput" type="search" placeholder="Cari nama, kategori, atau deskripsi…" aria-label="Cari produk" />
         </div>
+
         <select id="categoryFilter" aria-label="Filter kategori">
           <option value="">Semua kategori</option>
         </select>
-        <!-- NEW: sort -->
+
         <select id="sortSelect" aria-label="Urutkan produk">
           <option value="newest">Terbaru</option>
           <option value="oldest">Terlama</option>
@@ -693,63 +1056,68 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
-      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
     import {
-      getFirestore, collection, addDoc, updateDoc, deleteDoc,
-      doc, onSnapshot, query, orderBy, serverTimestamp
+      getFirestore,
+      collection,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      doc,
+      onSnapshot,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    /* ─── CONFIG ─── */
     const firebaseConfig = {
-      apiKey:            "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
-      authDomain:        "el-affiliate-store.firebaseapp.com",
-      projectId:         "el-affiliate-store",
-      storageBucket:     "el-affiliate-store.firebasestorage.app",
+      apiKey: "AIzaSyCLoP3eY97TVTB1aoAmbmwqGt9xrJgRhD8",
+      authDomain: "el-affiliate-store.firebaseapp.com",
+      projectId: "el-affiliate-store",
+      storageBucket: "el-affiliate-store.firebasestorage.app",
       messagingSenderId: "1023817787454",
-      appId:             "1:1023817787454:web:7516b1a8e4d2d989a6896f"
+      appId: "1:1023817787454:web:7516b1a8e4d2d989a6896f"
     };
+
     const ADMIN_EMAIL = "aliansikonoha25@gmail.com";
 
-    /* ─── INIT ─── */
-    const app  = initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db   = getFirestore(app);
+    const db = getFirestore(app);
 
     const $id = (id) => document.getElementById(id);
 
-    /* ─── DOM REFS ─── */
-    const adminPanel     = $id("adminPanel");
-    const adminStatus    = $id("adminStatus");
-    const loginBtn       = $id("loginBtn");
-    const logoutBtn      = $id("logoutBtn");
-    const noticeBox      = $id("noticeBox");
-    const productForm    = $id("productForm");
-    const saveBtn        = $id("saveBtn");
-    const productGrid    = $id("productGrid");
-    const productCount   = $id("productCount");
-    const searchInput    = $id("searchInput");
-    const catFilter      = $id("categoryFilter");
-    const sortSelect     = $id("sortSelect");
-    const heroStatCount  = $id("heroStatCount");
-    const imgPreview     = $id("imgPreview");
+    const adminPanel = $id("adminPanel");
+    const adminStatus = $id("adminStatus");
+    const loginBtn = $id("loginBtn");
+    const logoutBtn = $id("logoutBtn");
+    const noticeBox = $id("noticeBox");
+    const productForm = $id("productForm");
+    const saveBtn = $id("saveBtn");
+    const productGrid = $id("productGrid");
+    const productCount = $id("productCount");
+    const searchInput = $id("searchInput");
+    const catFilter = $id("categoryFilter");
+    const sortSelect = $id("sortSelect");
+    const heroStatCount = $id("heroStatCount");
+    const imgPreview = $id("imgPreview");
     const imgPreviewWrap = $id("imgPreviewWrap");
 
     const fTitle = $id("f-title");
     const fPrice = $id("f-price");
-    const fCat   = $id("f-category");
+    const fCat = $id("f-category");
     const fBadge = $id("f-badge");
     const fImage = $id("f-image");
-    const fLink  = $id("f-link");
-    const fDesc  = $id("f-desc");
+    const fLink = $id("f-link");
+    const fDesc = $id("f-desc");
 
-    /* ─── STATE ─── */
-    let products    = [];
+    let products = [];
     let currentUser = null;
-    let editingId   = null;
-    let loaded      = false;
+    let editingId = null;
+    let loaded = false;
 
-    // BUG FIX: save original notice HTML so we can restore on logout
     const NOTICE_DEFAULT_HTML = noticeBox.innerHTML;
 
     $id("year").textContent = new Date().getFullYear();
@@ -757,93 +1125,15 @@
     const isAdminPage = new URLSearchParams(location.search).has("admin");
     if (isAdminPage) adminPanel.style.display = "block";
 
-    /* ─── SCROLL TO TOP ─── */
     const scrollTopBtn = $id("scrollTop");
     window.addEventListener("scroll", () => {
       scrollTopBtn.classList.toggle("show", window.scrollY > 400);
     }, { passive: true });
-    scrollTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    /* ─── TOAST ─── */
-    function toast(message, type = "info", duration = 3500) {
-      const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
-      const el = document.createElement("div");
-      el.className = `toast ${type}`;
-      el.setAttribute("role", "alert");
-      el.innerHTML = `<span class="toast-icon">${icons[type] ?? "ℹ️"}</span><span>${sanitize(message)}</span>`;
-      $id("toastContainer").appendChild(el);
-      setTimeout(() => {
-        el.style.animation = "toastOut .3s ease forwards";
-        el.addEventListener("animationend", () => el.remove());
-      }, duration);
-    }
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-    /* ─── CONFIRM MODAL ─── */
-    function confirmAction(title, message) {
-      return new Promise((resolve) => {
-        $id("confirmTitle").textContent   = title;
-        $id("confirmMessage").textContent = message;
-        const backdrop = $id("confirmModal");
-        backdrop.classList.add("active");
-
-        const ok     = $id("confirmOk");
-        const cancel = $id("confirmCancel");
-
-        const cleanup = (result) => {
-          backdrop.classList.remove("active");
-          ok.removeEventListener("click",      onOk);
-          cancel.removeEventListener("click",  onCancel);
-          backdrop.removeEventListener("click", onBackdrop);
-          resolve(result);
-        };
-
-        const onOk       = ()  => cleanup(true);
-        const onCancel   = ()  => cleanup(false);
-        // BUG FIX: close modal when clicking backdrop
-        const onBackdrop = (e) => { if (e.target === backdrop) cleanup(false); };
-
-        ok.addEventListener("click",      onOk,       { once: true });
-        cancel.addEventListener("click",  onCancel,   { once: true });
-        backdrop.addEventListener("click", onBackdrop);
-      });
-    }
-
-    /* ─── PASSWORD MODAL ─── */
-    function promptPassword() {
-      return new Promise((resolve) => {
-        const modal = $id("passwordModal");
-        const input = $id("passwordInput");
-        modal.classList.add("active");
-        input.value = "";
-        setTimeout(() => input.focus(), 100);
-
-        const ok     = $id("passwordOk");
-        const cancel = $id("passwordCancel");
-
-        const cleanup = (val) => {
-          modal.classList.remove("active");
-          input.value = "";
-          ok.removeEventListener("click",      onOk);
-          cancel.removeEventListener("click",  onCancel);
-          input.removeEventListener("keydown",  onKey);
-          modal.removeEventListener("click",    onBackdrop);
-          resolve(val);
-        };
-
-        const onOk       = ()  => cleanup(input.value);
-        const onCancel   = ()  => cleanup(null);
-        const onKey      = (e) => { if (e.key === "Enter") cleanup(input.value); };
-        // BUG FIX: close password modal on backdrop click too
-        const onBackdrop = (e) => { if (e.target === modal) cleanup(null); };
-
-        ok.addEventListener("click",      onOk);
-        cancel.addEventListener("click",  onCancel);
-        input.addEventListener("keydown",  onKey);
-        modal.addEventListener("click",    onBackdrop);
-      });
-    }
-
-    /* ─── HELPERS ─── */
     function sanitize(value) {
       return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -853,51 +1143,159 @@
         .replace(/'/g, "&#x27;");
     }
 
+    function toast(message, type = "info", duration = 3500) {
+      const icons = {
+        success: "✅",
+        error: "❌",
+        warning: "⚠️",
+        info: "ℹ️"
+      };
+
+      const el = document.createElement("div");
+      el.className = `toast ${type}`;
+      el.setAttribute("role", "alert");
+      el.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${sanitize(message)}</span>`;
+
+      $id("toastContainer").appendChild(el);
+
+      setTimeout(() => {
+        el.style.opacity = "0";
+        el.style.transform = "translateX(120%)";
+        el.style.transition = ".25s";
+        setTimeout(() => el.remove(), 280);
+      }, duration);
+    }
+
+    function confirmAction(title, message) {
+      return new Promise((resolve) => {
+        $id("confirmTitle").textContent = title;
+        $id("confirmMessage").textContent = message;
+
+        const modal = $id("confirmModal");
+        const ok = $id("confirmOk");
+        const cancel = $id("confirmCancel");
+
+        modal.classList.add("active");
+
+        const cleanup = (result) => {
+          modal.classList.remove("active");
+          ok.removeEventListener("click", onOk);
+          cancel.removeEventListener("click", onCancel);
+          modal.removeEventListener("click", onBackdrop);
+          resolve(result);
+        };
+
+        const onOk = () => cleanup(true);
+        const onCancel = () => cleanup(false);
+        const onBackdrop = (e) => {
+          if (e.target === modal) cleanup(false);
+        };
+
+        ok.addEventListener("click", onOk, { once: true });
+        cancel.addEventListener("click", onCancel, { once: true });
+        modal.addEventListener("click", onBackdrop);
+      });
+    }
+
+    function promptPassword() {
+      return new Promise((resolve) => {
+        const modal = $id("passwordModal");
+        const input = $id("passwordInput");
+        const ok = $id("passwordOk");
+        const cancel = $id("passwordCancel");
+
+        modal.classList.add("active");
+        input.value = "";
+        setTimeout(() => input.focus(), 100);
+
+        const cleanup = (value) => {
+          modal.classList.remove("active");
+          input.value = "";
+          ok.removeEventListener("click", onOk);
+          cancel.removeEventListener("click", onCancel);
+          input.removeEventListener("keydown", onKey);
+          modal.removeEventListener("click", onBackdrop);
+          resolve(value);
+        };
+
+        const onOk = () => cleanup(input.value);
+        const onCancel = () => cleanup(null);
+        const onKey = (e) => {
+          if (e.key === "Enter") cleanup(input.value);
+        };
+        const onBackdrop = (e) => {
+          if (e.target === modal) cleanup(null);
+        };
+
+        ok.addEventListener("click", onOk);
+        cancel.addEventListener("click", onCancel);
+        input.addEventListener("keydown", onKey);
+        modal.addEventListener("click", onBackdrop);
+      });
+    }
+
     function isSafeUrl(url) {
       try {
         const u = new URL(url);
         return u.protocol === "https:";
-      } catch { return false; }
+      } catch {
+        return false;
+      }
+    }
+
+    function normalizeImageUrl(url) {
+      if (!url) return "";
+
+      const clean = String(url).trim();
+
+      try {
+        const u = new URL(clean, window.location.origin);
+        return u.protocol === "https:" ? u.href : "";
+      } catch {
+        return "";
+      }
     }
 
     function isAdmin() {
       return currentUser && currentUser.email === ADMIN_EMAIL;
     }
 
-    /* ─── CHAR COUNTERS ─── */
     function updateCharCount(input, counterId, max) {
       const el = $id(counterId);
       if (!el) return;
+
       const len = input.value.length;
       el.textContent = `${len}/${max}`;
       el.classList.toggle("warn", len >= max * 0.9);
     }
 
     fTitle.addEventListener("input", () => updateCharCount(fTitle, "cc-title", 120));
-    fDesc.addEventListener("input",  () => updateCharCount(fDesc,  "cc-desc",  400));
+    fDesc.addEventListener("input", () => updateCharCount(fDesc, "cc-desc", 400));
 
-    /* ─── IMAGE PREVIEW ─── */
     let imgPreviewTimer;
+
     fImage.addEventListener("input", () => {
       clearTimeout(imgPreviewTimer);
-      const val = fImage.value.trim();
-      if (!val || !isSafeUrl(val)) {
+
+      const val = normalizeImageUrl(fImage.value.trim());
+
+      if (!val) {
         imgPreviewWrap.classList.remove("show");
         return;
       }
+
       imgPreviewTimer = setTimeout(() => {
         imgPreview.src = val;
-        imgPreview.onload  = () => imgPreviewWrap.classList.add("show");
+        imgPreview.onload = () => imgPreviewWrap.classList.add("show");
         imgPreview.onerror = () => imgPreviewWrap.classList.remove("show");
-      }, 600);
+      }, 500);
     });
 
-    /* ─── LOGIN / LOGOUT ─── */
     loginBtn.addEventListener("click", async () => {
       const password = await promptPassword();
       if (!password) return;
 
-      loginBtn.disabled    = true;
+      loginBtn.disabled = true;
       loginBtn.textContent = "Memverifikasi…";
 
       try {
@@ -905,13 +1303,14 @@
         toast("Login berhasil!", "success");
       } catch (err) {
         const map = {
-          "auth/invalid-credential":     "Email atau password salah.",
-          "auth/too-many-requests":       "Terlalu banyak percobaan. Coba lagi beberapa menit.",
-          "auth/network-request-failed":  "Gagal terhubung ke server. Periksa koneksi internet.",
+          "auth/invalid-credential": "Email atau password salah.",
+          "auth/too-many-requests": "Terlalu banyak percobaan. Coba lagi beberapa menit.",
+          "auth/network-request-failed": "Gagal terhubung ke server. Periksa koneksi internet."
         };
-        toast(map[err.code] ?? "Login gagal. Coba lagi.", "error");
+
+        toast(map[err.code] || "Login gagal. Coba lagi.", "error");
       } finally {
-        loginBtn.disabled    = false;
+        loginBtn.disabled = false;
         loginBtn.textContent = "Login Admin";
       }
     });
@@ -921,7 +1320,6 @@
       toast("Berhasil logout.", "info");
     });
 
-    /* ─── AUTH STATE ─── */
     onAuthStateChanged(auth, (user) => {
       currentUser = user;
 
@@ -931,11 +1329,9 @@
         logoutBtn.classList.add("hidden");
         productForm.classList.add("hidden");
 
-        // BUG FIX #1 – reset noticeBox on logout
         noticeBox.classList.remove("success");
         noticeBox.innerHTML = NOTICE_DEFAULT_HTML;
 
-        // BUG FIX #2 – clear editingId on logout
         editingId = null;
         saveBtn.textContent = "Simpan Produk";
 
@@ -961,29 +1357,33 @@
       renderProducts();
     });
 
-    /* ─── FIRESTORE LISTENER ─── */
-    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+    onSnapshot(collection(db, "products"), (snap) => {
+      products = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data()
+      }));
 
-    onSnapshot(q, (snap) => {
-      products = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      loaded   = true;
+      products.sort((a, b) => {
+        const aa = a.createdAt?.seconds || 0;
+        const bb = b.createdAt?.seconds || 0;
+        return bb - aa;
+      });
 
-      // FIX: update dynamic hero stat
+      loaded = true;
       heroStatCount.textContent = products.length;
-
       buildCategoryFilter();
       renderProducts();
     }, (err) => {
-      console.error("[Firestore]", err.code);
+      console.error(err);
       productGrid.innerHTML = `
         <div class="empty-state">
           <div class="empty-icon">⚠️</div>
           <h3>Gagal memuat produk</h3>
-          <p>Pastikan Firebase Firestore sudah dikonfigurasi dan Security Rules sudah benar.</p>
-        </div>`;
+          <p>Pastikan Firebase dan Firestore Rules sudah benar.</p>
+        </div>
+      `;
     });
 
-    /* ─── SKELETONS ─── */
     function showSkeletons() {
       productGrid.innerHTML = Array.from({ length: 8 }).map(() => `
         <div class="skeleton-card">
@@ -993,36 +1393,47 @@
             <div class="skeleton-line medium"></div>
             <div class="skeleton-line short"></div>
           </div>
-        </div>`).join("");
+        </div>
+      `).join("");
     }
 
-    /* ─── CATEGORY FILTER ─── */
     function buildCategoryFilter() {
       const prev = catFilter.value;
       const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
+
       catFilter.innerHTML = `<option value="">Semua kategori</option>`;
-      cats.forEach(c => {
-        const o = document.createElement("option");
-        o.value = c; o.textContent = c;
-        catFilter.appendChild(o);
+
+      cats.forEach((cat) => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        catFilter.appendChild(opt);
       });
+
       catFilter.value = prev;
     }
 
-    /* ─── RENDER ─── */
     function renderProducts() {
-      if (!loaded) { showSkeletons(); return; }
+      if (!loaded) {
+        showSkeletons();
+        return;
+      }
 
-      const kw   = searchInput.value.toLowerCase().trim();
-      const cat  = catFilter.value;
+      const kw = searchInput.value.toLowerCase().trim();
+      const cat = catFilter.value;
       const sort = sortSelect.value;
 
-      let list = products.filter(p => {
-        const txt = `${p.title || ""} ${p.description || ""} ${p.category || ""} ${p.badge || ""}`.toLowerCase();
-        return txt.includes(kw) && (!cat || p.category === cat);
+      let list = products.filter((p) => {
+        const text = `
+          ${p.title || ""}
+          ${p.description || ""}
+          ${p.category || ""}
+          ${p.badge || ""}
+        `.toLowerCase();
+
+        return text.includes(kw) && (!cat || p.category === cat);
       });
 
-      // NEW: sort
       if (sort === "oldest") {
         list = [...list].reverse();
       } else if (sort === "az") {
@@ -1030,7 +1441,6 @@
       } else if (sort === "za") {
         list = [...list].sort((a, b) => (b.title || "").localeCompare(a.title || "", "id"));
       }
-      // "newest" is default (already ordered by Firestore)
 
       productCount.textContent = list.length ? `${list.length} produk` : "";
 
@@ -1040,34 +1450,29 @@
             <div class="empty-icon">🛍️</div>
             <h3>${kw || cat ? "Produk tidak ditemukan" : "Belum ada produk"}</h3>
             <p>${kw || cat ? "Coba kata kunci atau kategori lain." : (isAdminPage ? "Login sebagai admin lalu tambah produk pertama." : "Kunjungi kembali nanti untuk melihat produk terbaru.")}</p>
-          </div>`;
+          </div>
+        `;
         return;
       }
 
       const frag = document.createDocumentFragment();
 
-      list.forEach(p => {
+      list.forEach((p) => {
         const article = document.createElement("article");
         article.className = "product";
-        article.setAttribute("role", "listitem");
         article.dataset.id = p.id;
 
-        const safeTitle = sanitize(p.title        || "Produk Shopee");
-        const safePrice = sanitize(p.price        || "Cek harga di Shopee");
-        const safeDesc  = sanitize(p.description  || "Produk pilihan dari Shopee Affiliate.");
+        const safeTitle = sanitize(p.title || "Produk Shopee");
+        const safePrice = sanitize(p.price || "Cek harga di Shopee");
+        const safeDesc = sanitize(p.description || "Produk pilihan dari Shopee Affiliate.");
         const safeBadge = sanitize(p.badge || p.category || "Rekomendasi");
-        const safeHref  = (p.link && isSafeUrl(p.link)) ? sanitize(p.link) : "#";
+        const safeHref = p.link && isSafeUrl(p.link) ? sanitize(p.link) : "#";
 
-        // NEW: WhatsApp share URL
-        const waText    = encodeURIComponent(`🛍️ Cek produk ini: ${p.title || "Produk Shopee"}\n${p.price ? p.price + "\n" : ""}${p.link || ""}`);
-        const waHref    = `https://wa.me/?text=${waText}`;
+        const productImageUrl = normalizeImageUrl(p.imageUrl || "");
 
-        let thumbHTML;
-        if (p.imageUrl && isSafeUrl(p.imageUrl)) {
-          thumbHTML = `<img src="${sanitize(p.imageUrl)}" alt="${safeTitle}" loading="lazy" class="prod-img-el" />`;
-        } else {
-          thumbHTML = `<div class="no-img">🛍️</div>`;
-        }
+        const thumbHTML = productImageUrl
+          ? `<img src="${sanitize(productImageUrl)}" alt="${safeTitle}" loading="lazy" class="prod-img-el" />`
+          : `<div class="no-img">🛍️</div>`;
 
         article.innerHTML = `
           <div class="product-thumb">${thumbHTML}</div>
@@ -1076,30 +1481,33 @@
             <h3>${safeTitle}</h3>
             <div class="product-price">${safePrice}</div>
             <div class="product-desc">${safeDesc}</div>
-            <div class="product-actions">
-              <a  class="card-btn card-btn-buy"  href="${safeHref}" target="_blank" rel="noopener noreferrer">Beli di Shopee</a>
-              <button class="card-btn card-btn-copy" type="button" data-action="copy" aria-label="Salin link">Salin</button>
-              <a  class="card-btn card-btn-wa"   href="${waHref}"  target="_blank" rel="noopener noreferrer" aria-label="Bagikan via WhatsApp" title="Bagikan via WhatsApp">🟢</a>
-            </div>
-            ${isAdmin() ? `
-            <div class="admin-row">
-              <button class="card-btn card-btn-edit"   type="button" data-action="edit"   aria-label="Edit produk">Edit</button>
-              <button class="card-btn card-btn-delete" type="button" data-action="delete" aria-label="Hapus produk">Hapus</button>
-            </div>` : ""}
-          </div>`;
 
-        // fallback image
+            <div class="product-actions">
+              <a class="card-btn card-btn-buy" href="${safeHref}" target="_blank" rel="noopener noreferrer">Beli di Shopee</a>
+              <button class="card-btn card-btn-copy" type="button" data-action="copy">Salin</button>
+            </div>
+
+            ${isAdmin() ? `
+              <div class="admin-row">
+                <button class="card-btn card-btn-edit" type="button" data-action="edit">Edit</button>
+                <button class="card-btn card-btn-delete" type="button" data-action="delete">Hapus</button>
+              </div>
+            ` : ""}
+          </div>
+        `;
+
         const img = article.querySelector(".prod-img-el");
         if (img) {
           img.addEventListener("error", () => {
             const thumb = img.closest(".product-thumb");
-            if (thumb) {
-              img.remove();
-              const fb = document.createElement("div");
-              fb.className   = "no-img";
-              fb.textContent = "🛍️";
-              thumb.appendChild(fb);
-            }
+            if (!thumb) return;
+
+            img.remove();
+
+            const fallback = document.createElement("div");
+            fallback.className = "no-img";
+            fallback.textContent = "🛍️";
+            thumb.appendChild(fallback);
           }, { once: true });
         }
 
@@ -1110,106 +1518,124 @@
       productGrid.appendChild(frag);
     }
 
-    /* ─── CARD ACTIONS ─── */
     productGrid.addEventListener("click", async (e) => {
-      const btn     = e.target.closest("[data-action]");
+      const btn = e.target.closest("[data-action]");
       if (!btn) return;
 
-      const action  = btn.dataset.action;
       const article = btn.closest("[data-id]");
-      const id      = article?.dataset.id;
-      if (!id) return;
+      const id = article?.dataset.id;
+      const p = products.find((item) => item.id === id);
 
-      const p = products.find(x => x.id === id);
       if (!p) return;
 
-      /* copy link */
+      const action = btn.dataset.action;
+
       if (action === "copy") {
-        const link = p.link || "";
         try {
-          await navigator.clipboard.writeText(link);
+          await navigator.clipboard.writeText(p.link || "");
           btn.textContent = "✓ Tersalin";
           btn.classList.add("copied");
+
           setTimeout(() => {
             btn.textContent = "Salin";
             btn.classList.remove("copied");
-          }, 2000);
+          }, 1800);
+
           toast("Link berhasil disalin!", "success");
         } catch {
-          toast(`Salin link ini secara manual: ${link}`, "warning", 8000);
+          toast("Gagal menyalin link.", "error");
         }
       }
 
-      /* edit */
       if (action === "edit") {
-        if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
+        if (!isAdmin()) {
+          toast("Akses ditolak.", "error");
+          return;
+        }
+
         startEdit(p);
       }
 
-      /* delete */
       if (action === "delete") {
-        if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
+        if (!isAdmin()) {
+          toast("Akses ditolak.", "error");
+          return;
+        }
+
         const ok = await confirmAction(
           "Hapus Produk",
-          `Yakin ingin menghapus "${p.title || "produk ini"}"? Tindakan ini tidak dapat dibatalkan.`
+          `Yakin ingin menghapus "${p.title || "produk ini"}"?`
         );
+
         if (!ok) return;
 
-        btn.textContent = "Menghapus…";
-        btn.disabled    = true;
         try {
           await deleteDoc(doc(db, "products", id));
           toast("Produk berhasil dihapus.", "success");
-        } catch (err) {
-          console.error(err.code);
+        } catch {
           toast("Gagal menghapus produk.", "error");
-          btn.textContent = "Hapus";
-          btn.disabled    = false;
         }
       }
     });
 
-    /* ─── SAVE / UPDATE ─── */
     productForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!isAdmin()) { toast("Akses ditolak.", "error"); return; }
 
-      const title    = fTitle.value.trim();
-      const link     = fLink.value.trim();
-      const imageUrl = fImage.value.trim();
+      if (!isAdmin()) {
+        toast("Akses ditolak.", "error");
+        return;
+      }
 
-      if (!title) { toast("Nama produk wajib diisi.",  "warning"); fTitle.focus(); return; }
-      if (!link)  { toast("Link affiliate wajib diisi.", "warning"); fLink.focus(); return; }
-      if (!isSafeUrl(link)) { toast("Link tidak valid. Harus diawali https://", "warning"); fLink.focus(); return; }
+      const title = fTitle.value.trim();
+      const link = fLink.value.trim();
+      const imageUrlRaw = fImage.value.trim();
+      const imageUrl = normalizeImageUrl(imageUrlRaw);
+
+      if (!title) {
+        toast("Nama produk wajib diisi.", "warning");
+        fTitle.focus();
+        return;
+      }
+
+      if (!link) {
+        toast("Link affiliate wajib diisi.", "warning");
+        fLink.focus();
+        return;
+      }
+
+      if (!isSafeUrl(link)) {
+        toast("Link affiliate harus diawali https://", "warning");
+        fLink.focus();
+        return;
+      }
 
       if (!link.includes("shopee")) {
-        const ok = await confirmAction("Link Bukan Shopee", "Link ini tidak tampak seperti link Shopee. Tetap simpan?");
+        const ok = await confirmAction(
+          "Link Bukan Shopee",
+          "Link ini tidak tampak seperti link Shopee. Tetap simpan?"
+        );
+
         if (!ok) return;
       }
 
-      if (imageUrl && !isSafeUrl(imageUrl)) {
-        toast("URL gambar harus diawali https://", "warning");
+      if (imageUrlRaw && !imageUrl) {
+        toast("URL gambar tidak valid. Contoh: tumbler-bear.png atau https://...", "warning");
         fImage.focus();
         return;
       }
 
       const data = {
-        title:       title,
-        price:       fPrice.value.trim(),
-        category:    fCat.value.trim(),
-        badge:       fBadge.value.trim(),
-        imageUrl:    imageUrl,
-        link:        link,
-        description: fDesc.value.trim(),
-        updatedAt:   serverTimestamp()
+        title: title.slice(0, 120),
+        price: fPrice.value.trim().slice(0, 40),
+        category: fCat.value.trim().slice(0, 50),
+        badge: fBadge.value.trim().slice(0, 50),
+        imageUrl: imageUrl.slice(0, 500),
+        link: link.slice(0, 500),
+        description: fDesc.value.trim().slice(0, 400),
+        updatedAt: serverTimestamp()
       };
 
-      // trim string values to max 500 chars
-      Object.keys(data).forEach(k => {
-        if (typeof data[k] === "string") data[k] = data[k].slice(0, 500);
-      });
-
-      saveBtn.disabled    = true;
+      saveBtn.disabled = true;
       saveBtn.textContent = editingId ? "Mengupdate…" : "Menyimpan…";
 
       try {
@@ -1217,15 +1643,19 @@
           await updateDoc(doc(db, "products", editingId), data);
           toast("Produk berhasil diupdate!", "success");
         } else {
-          await addDoc(collection(db, "products"), { ...data, createdAt: serverTimestamp() });
-          toast("Produk baru berhasil ditambahkan!", "success");
+          await addDoc(collection(db, "products"), {
+            ...data,
+            createdAt: serverTimestamp()
+          });
+          toast("Produk berhasil ditambahkan!", "success");
         }
+
         resetForm();
       } catch (err) {
-        console.error(err.code);
-        toast("Gagal menyimpan produk. Coba lagi.", "error");
+        console.error(err);
+        toast("Gagal menyimpan produk.", "error");
       } finally {
-        saveBtn.disabled    = false;
+        saveBtn.disabled = false;
         saveBtn.textContent = editingId ? "Update Produk" : "Simpan Produk";
       }
     });
@@ -1238,45 +1668,43 @@
       saveBtn.textContent = "Simpan Produk";
       imgPreviewWrap.classList.remove("show");
       updateCharCount(fTitle, "cc-title", 120);
-      updateCharCount(fDesc,  "cc-desc",  400);
+      updateCharCount(fDesc, "cc-desc", 400);
     }
 
-    /* ─── START EDIT ─── */
     function startEdit(p) {
-      editingId           = p.id;
-      fTitle.value        = p.title       || "";
-      fPrice.value        = p.price       || "";
-      fCat.value          = p.category    || "";
-      fBadge.value        = p.badge       || "";
-      fImage.value        = p.imageUrl    || "";
-      fLink.value         = p.link        || "";
-      fDesc.value         = p.description || "";
+      editingId = p.id;
+
+      fTitle.value = p.title || "";
+      fPrice.value = p.price || "";
+      fCat.value = p.category || "";
+      fBadge.value = p.badge || "";
+      fImage.value = p.imageUrl || "";
+      fLink.value = p.link || "";
+      fDesc.value = p.description || "";
+
       saveBtn.textContent = "Update Produk";
 
-      // update char counters
       updateCharCount(fTitle, "cc-title", 120);
-      updateCharCount(fDesc,  "cc-desc",  400);
+      updateCharCount(fDesc, "cc-desc", 400);
 
-      // BUG FIX #3: show image preview if imageUrl is set
-      if (p.imageUrl && isSafeUrl(p.imageUrl)) {
-        imgPreview.src = p.imageUrl;
-        imgPreview.onload  = () => imgPreviewWrap.classList.add("show");
+      const imgUrl = normalizeImageUrl(p.imageUrl || "");
+
+      if (imgUrl) {
+        imgPreview.src = imgUrl;
+        imgPreview.onload = () => imgPreviewWrap.classList.add("show");
         imgPreview.onerror = () => imgPreviewWrap.classList.remove("show");
       } else {
         imgPreviewWrap.classList.remove("show");
       }
 
-      // BUG FIX #4: make sure admin panel is visible before scrolling
       adminPanel.style.display = "block";
       adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    /* ─── SEARCH / FILTER / SORT ─── */
-    searchInput.addEventListener("input",  renderProducts);
-    catFilter.addEventListener("change",   renderProducts);
-    sortSelect.addEventListener("change",  renderProducts);
+    searchInput.addEventListener("input", renderProducts);
+    catFilter.addEventListener("change", renderProducts);
+    sortSelect.addEventListener("change", renderProducts);
 
-    /* ─── INIT ─── */
     showSkeletons();
   </script>
 </body>
